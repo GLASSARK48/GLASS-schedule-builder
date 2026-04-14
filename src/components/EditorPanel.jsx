@@ -307,6 +307,15 @@ export default function EditorPanel({ schedule, updateSchedule, updateDay, previ
       <div className="section">
         <div className="section-title">// タイトル文字</div>
         <div className="field">
+          <label>ブランド名</label>
+          <input
+            type="text"
+            value={schedule.brandText ?? 'CHRONO REVERSE'}
+            onChange={e => updateSchedule({ brandText: e.target.value })}
+            placeholder="CHRONO REVERSE"
+          />
+        </div>
+        <div className="field">
           <label>表示タイトル</label>
           <input
             type="text"
@@ -356,6 +365,32 @@ export default function EditorPanel({ schedule, updateSchedule, updateDay, previ
                   borderRadius: 2,
                 }}
                 onClick={() => updateSchedule({ scheduleTheme: t.id })}
+              >{t.name}</button>
+            ))}
+          </div>
+        </div>
+        <div className="field">
+          <label>タイトル配色 <span style={{ fontSize: 8, color: 'var(--t3)' }}>（空=スケジュールに連動）</span></label>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginTop: 4 }}>
+            <button
+              className={`btn btn-sm ${!schedule.titleTheme ? 'active' : ''}`}
+              style={{
+                fontSize: 9, padding: '3px 8px', borderRadius: 2,
+                border: !schedule.titleTheme ? '2px solid var(--t2)' : '1px solid var(--border)',
+                background: 'var(--card2)', color: 'var(--t2)',
+              }}
+              onClick={() => updateSchedule({ titleTheme: null })}
+            >連動</button>
+            {SCHEDULE_THEMES.map(t => (
+              <button
+                key={t.id}
+                className={`btn btn-sm ${schedule.titleTheme === t.id ? 'active' : ''}`}
+                style={{
+                  background: t.bg, color: t.text,
+                  border: schedule.titleTheme === t.id ? `2px solid ${t.text}` : `1px solid ${t.border}`,
+                  fontSize: 9, padding: '3px 8px', borderRadius: 2,
+                }}
+                onClick={() => updateSchedule({ titleTheme: t.id })}
               >{t.name}</button>
             ))}
           </div>

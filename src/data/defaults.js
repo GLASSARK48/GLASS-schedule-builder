@@ -45,6 +45,8 @@ export function createDefaultSchedule() {
     titleImage: '/images/title-default.png',  // title zone background
     titleOverlay: 0.3,     // title overlay opacity (0~1)
     titleBlend: 'pal-screen',  // title blend mode
+    titleTheme: null,      // null = follow schedule theme, or theme id
+    brandText: 'CHRONO REVERSE',  // brand text above WEEKLY SCHEDULE
     snapImage: null,       // single snap zone image
     memberIcons,           // per-member icon images
     // Schedule zone color theme

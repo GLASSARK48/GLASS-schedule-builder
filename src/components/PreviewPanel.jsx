@@ -20,6 +20,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
   const fName = FIXED_FONTS.name
   const fJp = getJpFontStyle(schedule.fonts)
   const sTheme = SCHEDULE_THEMES.find(t => t.id === schedule.scheduleTheme) || SCHEDULE_THEMES[0]
+  const tTheme = schedule.titleTheme ? (SCHEDULE_THEMES.find(t => t.id === schedule.titleTheme) || sTheme) : sTheme
   const isLightTheme = schedule.scheduleTheme === 'white'
   const dayColor = (dc) => isLightTheme ? dc.light : dc.color
   const themeVars = {
@@ -411,7 +412,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
         <div ref={previewRef} className="preview-frame" style={palVars}>
 
           {/* ZONE 1: TITLE */}
-          <div className="pv-title-zone" style={{ background: sTheme.bg }}>
+          <div className="pv-title-zone" style={{ background: tTheme.bg }}>
             {schedule.titleImage && (
               <div className="pv-title-bg" style={{ ...titleImgStyle, opacity: schedule.titleOverlay ?? 0.55 }} />
             )}
@@ -422,11 +423,11 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
               <div key={li} className="pv-title-overlay" style={layerStyle} />
             ))}
             <div className="pv-title-content">
-              <span className="pv-brand" style={{ fontSize: (adv.brandSize || 18) * fs, color: sTheme.sub }}>CHRONO REVERSE</span>
-              <span className="pv-label" style={{ fontSize: (adv.labelSize || 20) * fs, ...fLabel, color: sTheme.muted }}>WEEKLY SCHEDULE</span>
-              <h1 className="pv-title" style={{ fontSize: (adv.titleSize || 64) * fs, ...fDisplay, color: sTheme.text, textShadow: `0 4px 40px ${sTheme.text}30` }}>{title}</h1>
-              <span className="pv-sub" style={{ fontSize: (adv.subSize || 16) * fs, color: sTheme.sub }}>— Week {schedule.weekNumber} —</span>
-              <span className="pv-date" style={{ fontSize: (adv.dateSize || 18) * fs, ...fTime, color: sTheme.muted }}>
+              <span className="pv-brand" style={{ fontSize: (adv.brandSize || 18) * fs, color: tTheme.sub }}>{schedule.brandText || 'CHRONO REVERSE'}</span>
+              <span className="pv-label" style={{ fontSize: (adv.labelSize || 20) * fs, ...fLabel, color: tTheme.muted }}>WEEKLY SCHEDULE</span>
+              <h1 className="pv-title" style={{ fontSize: (adv.titleSize || 64) * fs, ...fDisplay, color: tTheme.text, textShadow: `0 4px 40px ${tTheme.text}30` }}>{title}</h1>
+              <span className="pv-sub" style={{ fontSize: (adv.subSize || 16) * fs, color: tTheme.sub }}>— Week {schedule.weekNumber} —</span>
+              <span className="pv-date" style={{ fontSize: (adv.dateSize || 18) * fs, ...fTime, color: tTheme.muted }}>
                 {schedule.startDate.replace(/-/g, '.')} — {endShort}
               </span>
             </div>
@@ -435,7 +436,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
                 <div key={m.id} className="pv-dot" style={{ background: m.color }} />
               ))}
             </div>
-            <div className="pv-title-week-ghost" style={{ fontSize: 200 * fs, color: `${sTheme.text}08` }}>
+            <div className="pv-title-week-ghost" style={{ fontSize: 200 * fs, color: `${tTheme.text}08` }}>
               {schedule.weekNumber}
             </div>
           </div>
