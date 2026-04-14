@@ -112,6 +112,41 @@ export default function DayEditor({ dayIndex, dayLabel, day, updateDay, isSaturd
                   </select>
                 </div>
               </div>
+              {slot.platform === 'other' && (
+                <div className="field">
+                  <label>カスタムアイコン</label>
+                  <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                    {slot.customIcon ? (
+                      <>
+                        <img src={slot.customIcon} alt="" style={{ width: 28, height: 28, objectFit: 'contain', borderRadius: 2, border: '1px solid var(--border)' }} />
+                        <button className="btn btn-sm" style={{ fontSize: 7, padding: '1px 4px' }}
+                          onClick={() => updateSlot(si, 'customIcon', null)}>&times;</button>
+                      </>
+                    ) : (
+                      <button className="btn btn-sm" onClick={() => {
+                        const input = document.createElement('input')
+                        input.type = 'file'; input.accept = 'image/*'
+                        input.onchange = (e) => {
+                          const file = e.target.files[0]; if (!file) return
+                          const reader = new FileReader()
+                          reader.onload = (ev) => updateSlot(si, 'customIcon', ev.target.result)
+                          reader.readAsDataURL(file)
+                        }
+                        input.click()
+                      }}>+ アイコン</button>
+                    )}
+                  </div>
+                  {slot.customIcon && (
+                    <div style={{ marginTop: 4 }}>
+                      <label style={{ fontSize: 8, color: 'var(--t3)' }}>サイズ: {slot.customIconScale || 100}%</label>
+                      <input type="range" min="50" max="200" step="5"
+                        value={slot.customIconScale || 100}
+                        onChange={e => updateSlot(si, 'customIconScale', parseInt(e.target.value))}
+                        style={{ width: '100%' }} />
+                    </div>
+                  )}
+                </div>
+              )}
               <div className="field">
                 <label>配信タイトル (任意)</label>
                 <input

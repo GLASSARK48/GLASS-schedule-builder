@@ -160,6 +160,9 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
           {platIcon ? (
             <img className="pv-slot-plat-icon" src={platIcon} alt={plat.label}
               style={{ width: (adv.platIconSize || 28) * (plat?.iconScale || 1), height: Math.round((adv.platIconSize || 28) * 0.7 * (plat?.iconScale || 1)), objectFit: 'contain' }} />
+          ) : slot.customIcon ? (
+            <img className="pv-slot-plat-icon" src={slot.customIcon} alt="custom"
+              style={{ width: (adv.platIconSize || 28) * ((slot.customIconScale || 100) / 100), height: Math.round((adv.platIconSize || 28) * ((slot.customIconScale || 100) / 100)), objectFit: 'contain' }} />
           ) : (
             plat?.label && <div className="pv-slot-platform" style={{ fontSize: 9 * fs }}>{plat.label}</div>
           )}
@@ -237,6 +240,9 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
         {platIcon ? (
           <img className="pv-slot-plat-icon" src={platIcon} alt={plat.label}
             style={{ width: (adv.platIconSize || 28) * (plat?.iconScale || 1), height: Math.round((adv.platIconSize || 28) * 0.7 * (plat?.iconScale || 1)), objectFit: 'contain' }} />
+        ) : slot.customIcon ? (
+          <img className="pv-slot-plat-icon" src={slot.customIcon} alt="custom"
+            style={{ width: (adv.platIconSize || 28) * ((slot.customIconScale || 100) / 100), height: Math.round((adv.platIconSize || 28) * ((slot.customIconScale || 100) / 100)), objectFit: 'contain' }} />
         ) : (
           <div className="pv-vslot-platform" style={{ fontSize: 9 * fs }}>
             {plat?.label || slot.platform}
