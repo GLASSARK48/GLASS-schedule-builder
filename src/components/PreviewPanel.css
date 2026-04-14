@@ -382,9 +382,7 @@
 .pv-slot-time {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 500;
-  background: linear-gradient(180deg, #e8e8f0, #8888a0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--st-text, #e0e0e8);
   letter-spacing: 1px;
 }
 .pv-slot-platform {
@@ -554,9 +552,7 @@
 .pv-vslot-time {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 500;
-  background: linear-gradient(180deg, #e8e8f0, #8888a0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--st-text, #e0e0e8);
   letter-spacing: 1px;
   position: relative; z-index: 5;
 }

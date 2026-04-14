@@ -19,13 +19,13 @@ export const DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
 
 // Japanese calendar style: weekdays neutral, SAT=blue, SUN=red
 export const DAY_COLORS = [
-  { color: '#c0c0c8', r: 192, g: 192, b: 200 },  // MON
-  { color: '#c0c0c8', r: 192, g: 192, b: 200 },  // TUE
-  { color: '#c0c0c8', r: 192, g: 192, b: 200 },  // WED
-  { color: '#c0c0c8', r: 192, g: 192, b: 200 },  // THU
-  { color: '#c0c0c8', r: 192, g: 192, b: 200 },  // FRI
-  { color: '#5588DD', r: 85, g: 136, b: 221 },    // SAT — blue
-  { color: '#DD4444', r: 221, g: 68, b: 68 },     // SUN — red
+  { color: '#c0c0c8', light: '#4a4a5a', r: 192, g: 192, b: 200 },  // MON
+  { color: '#c0c0c8', light: '#4a4a5a', r: 192, g: 192, b: 200 },  // TUE
+  { color: '#c0c0c8', light: '#4a4a5a', r: 192, g: 192, b: 200 },  // WED
+  { color: '#c0c0c8', light: '#4a4a5a', r: 192, g: 192, b: 200 },  // THU
+  { color: '#c0c0c8', light: '#4a4a5a', r: 192, g: 192, b: 200 },  // FRI
+  { color: '#5588DD', light: '#2255AA', r: 85, g: 136, b: 221 },    // SAT — blue
+  { color: '#DD4444', light: '#CC2222', r: 221, g: 68, b: 68 },     // SUN — red
 ]
 
 export const PALETTES = {

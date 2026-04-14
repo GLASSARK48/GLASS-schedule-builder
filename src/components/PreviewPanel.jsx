@@ -20,6 +20,8 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
   const fName = FIXED_FONTS.name
   const fJp = getJpFontStyle(schedule.fonts)
   const sTheme = SCHEDULE_THEMES.find(t => t.id === schedule.scheduleTheme) || SCHEDULE_THEMES[0]
+  const isLightTheme = schedule.scheduleTheme === 'white'
+  const dayColor = (dc) => isLightTheme ? dc.light : dc.color
   const themeVars = {
     '--st-bg': sTheme.bg,
     '--st-card': sTheme.card,
@@ -291,8 +293,8 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
               return (
                 <div key={i} className="pv-row pv-row-dayoff">
                   <div className="pv-row-day" style={{ borderColor: `rgba(${dc.r},${dc.g},${dc.b},0.08)` }}>
-                    <span className="pv-dow" style={{ fontSize: (adv.dayDowSize || 16) * fs, color: dc.color }}>{DAYS[i]}</span>
-                    <span className="pv-dow-jp" style={{ fontSize: 11 * fs, color: dc.color }}>{DAYS_JP[i]}</span>
+                    <span className="pv-dow" style={{ fontSize: (adv.dayDowSize || 16) * fs, color: dayColor(dc) }}>{DAYS[i]}</span>
+                    <span className="pv-dow-jp" style={{ fontSize: 11 * fs, color: dayColor(dc) }}>{DAYS_JP[i]}</span>
                     <span className="pv-day-date" style={{ fontSize: (adv.dayDateSize || 13) * fs }}>{dateShort}</span>
                   </div>
                   <div className="pv-row-body pv-dayoff-body">
@@ -310,8 +312,8 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
               return (
                 <div key={i} className="pv-row pv-row-fm">
                   <div className="pv-row-day" style={{ borderColor: `rgba(${dc.r},${dc.g},${dc.b},0.15)` }}>
-                    <span className="pv-dow" style={{ fontSize: (adv.dayDowSize || 16) * fs, color: dc.color }}>{DAYS[i]}</span>
-                    <span className="pv-dow-jp" style={{ fontSize: 11 * fs, color: dc.color }}>{DAYS_JP[i]}</span>
+                    <span className="pv-dow" style={{ fontSize: (adv.dayDowSize || 16) * fs, color: dayColor(dc) }}>{DAYS[i]}</span>
+                    <span className="pv-dow-jp" style={{ fontSize: 11 * fs, color: dayColor(dc) }}>{DAYS_JP[i]}</span>
                     <span className="pv-day-date" style={{ fontSize: (adv.dayDateSize || 13) * fs }}>{dateShort}</span>
                   </div>
                   <div className="pv-row-slots pv-row-slots-h">
@@ -325,8 +327,8 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
               return (
                 <div key={i} className="pv-row pv-row-off">
                   <div className="pv-row-day" style={{ borderColor: `rgba(${dc.r},${dc.g},${dc.b},0.08)` }}>
-                    <span className="pv-dow" style={{ fontSize: (adv.dayDowSize || 16) * fs, color: dc.color }}>{DAYS[i]}</span>
-                    <span className="pv-dow-jp" style={{ fontSize: 11 * fs, color: dc.color }}>{DAYS_JP[i]}</span>
+                    <span className="pv-dow" style={{ fontSize: (adv.dayDowSize || 16) * fs, color: dayColor(dc) }}>{DAYS[i]}</span>
+                    <span className="pv-dow-jp" style={{ fontSize: 11 * fs, color: dayColor(dc) }}>{DAYS_JP[i]}</span>
                     <span className="pv-day-date" style={{ fontSize: (adv.dayDateSize || 13) * fs }}>{dateShort}</span>
                   </div>
                   <div className="pv-row-body">
@@ -339,8 +341,8 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
             return (
               <div key={i} className="pv-row">
                 <div className="pv-row-day" style={{ borderColor: `rgba(${dc.r},${dc.g},${dc.b},0.15)` }}>
-                  <span className="pv-dow" style={{ fontSize: (adv.dayDowSize || 16) * fs, color: dc.color }}>{DAYS[i]}</span>
-                  <span className="pv-dow-jp" style={{ fontSize: 11 * fs, color: dc.color }}>{DAYS_JP[i]}</span>
+                  <span className="pv-dow" style={{ fontSize: (adv.dayDowSize || 16) * fs, color: dayColor(dc) }}>{DAYS[i]}</span>
+                  <span className="pv-dow-jp" style={{ fontSize: 11 * fs, color: dayColor(dc) }}>{DAYS_JP[i]}</span>
                   <span className="pv-day-date" style={{ fontSize: (adv.dayDateSize || 13) * fs }}>{dateShort}</span>
                 </div>
                 <div className="pv-row-slots pv-row-slots-h">
@@ -370,8 +372,8 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
               style={{ '--dc': dc.color, '--dcr': dc.r, '--dcg': dc.g, '--dcb': dc.b }}>
               <div className="pv-col-day">
                 <div className="pv-col-day-top">
-                  <span className="pv-dow" style={{ fontSize: (adv.vDayDowSize || 14) * fs, color: dc.color }}>{DAYS[i]}</span>
-                  <span className="pv-dow-jp" style={{ fontSize: 10 * fs, color: dc.color }}>{DAYS_JP[i]}</span>
+                  <span className="pv-dow" style={{ fontSize: (adv.vDayDowSize || 14) * fs, color: dayColor(dc) }}>{DAYS[i]}</span>
+                  <span className="pv-dow-jp" style={{ fontSize: 10 * fs, color: dayColor(dc) }}>{DAYS_JP[i]}</span>
                 </div>
                 <span className="pv-col-date" style={{ fontSize: (adv.vDayDateSize || 12) * fs }}>{dateShort}</span>
               </div>
