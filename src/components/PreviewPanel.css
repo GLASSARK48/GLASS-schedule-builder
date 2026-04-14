@@ -1,0 +1,628 @@
+/* ═══════════════════════════════════════════
+   CHRONOVA 2026 — Schedule Preview
+   1080 x 1440 (3:4) — fixed canvas
+   Vertical: slots stack down / Horizontal: slots go right
+   ═══════════════════════════════════════════ */
+
+.preview-scale-wrapper {
+  display: block;
+  overflow: hidden;
+  width: 648px;
+  height: 864px;
+  flex-shrink: 0;
+}
+.preview-frame {
+  width: 1080px;
+  height: 1440px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #060608;
+  flex-shrink: 0;
+  transform: scale(0.6);
+  transform-origin: top left;
+}
+
+/* ═══ NOISE ═══ */
+.pv-noise {
+  position: absolute; inset: 0; z-index: 90; pointer-events: none;
+  opacity: 0.12; mix-blend-mode: overlay;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E");
+}
+.pv-noise-heavy {
+  position: absolute; inset: 0; z-index: 91; pointer-events: none;
+  opacity: 0.04; mix-blend-mode: overlay;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.28'/%3E%3C/svg%3E");
+}
+
+/* ═══ CHROME LINE ═══ */
+.pv-chrome-line {
+  height: 2px; flex-shrink: 0;
+  background: linear-gradient(90deg, #2a2a3a 0%, #8888a0 20%, #e8e8f0 40%, #c0c0c8 50%, #4a4a5a 65%, #e0e0e8 80%, #8888a0 100%);
+  opacity: 0.5;
+  position: relative; z-index: 10;
+}
+
+/* ═══ ZONE 1: TITLE (~350px) ═══ */
+.pv-title-zone {
+  flex: 0 0 350px;
+  position: relative; z-index: 10;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 40px 24px;
+  overflow: hidden;
+}
+.pv-title-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  /* background set inline via titleOverlay */
+  pointer-events: none;
+}
+.pv-title-content {
+  position: relative; z-index: 5;
+  display: flex; flex-direction: column; gap: 3px;
+}
+.pv-label {
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 4px;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+}
+.pv-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  letter-spacing: 6px; line-height: 1;
+  color: #fff;
+  text-shadow: 0 4px 40px rgba(192,192,200,0.3);
+}
+.pv-sub {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  color: rgba(255,255,255,0.55); letter-spacing: 2px;
+}
+.pv-date {
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.4); margin-top: 2px;
+}
+.pv-title-dots {
+  position: absolute; right: 40px; bottom: 24px;
+  z-index: 5; display: flex; gap: 6px;
+}
+.pv-dot {
+  width: 6px; height: 28px; border-radius: 3px; opacity: 0.8;
+}
+.pv-title-week-ghost {
+  position: absolute; right: 80px; top: 50%; transform: translateY(-50%);
+  font-family: 'Syne', sans-serif;
+  font-weight: 800; line-height: 1;
+  color: rgba(255,255,255,0.03); z-index: 3;
+  letter-spacing: -8px;
+}
+
+/* ═══ ZONE 2: SNAP (~500px) ═══ */
+.pv-snap-zone {
+  flex: 0 0 500px;
+  position: relative; z-index: 10;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pv-snap-empty-label {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: rgba(255,255,255,0.08);
+}
+
+/* ═══ ZONE 3: SCHEDULE ═══ */
+.pv-schedule-zone {
+  flex: 1;
+  position: relative; z-index: 10;
+  display: flex;
+  padding: 8px 24px 4px;
+  gap: 3px;
+  background: var(--st-bg, #060608);
+  overflow: hidden;
+}
+
+/* ═══ SHARED TYPOGRAPHY ═══ */
+.pv-dow {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--st-text, #e0e0e8);
+}
+.pv-dow-jp {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 500;
+  color: var(--st-sub, #8888a0);
+}
+.pv-day-date {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--st-sub, #c0c0c8);
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+.pv-off-label {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+  letter-spacing: 4px;
+  color: var(--st-muted, #555568);
+}
+.pv-slot-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg,
+    rgba(var(--mr), var(--mg), var(--mb), 0.06),
+    transparent 40%);
+}
+.pv-slot-plat-icon {
+  display: block;
+  position: relative; z-index: 2;
+  opacity: 0.85;
+}
+.pv-fm-dots-row {
+  display: flex; gap: 3px; flex-shrink: 0;
+}
+.pv-fm-dot-h {
+  width: 14px; height: 4px; border-radius: 2px; opacity: 0.8;
+}
+.pv-fm-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, #C0C0C8, #E8E8F0, #7B61FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  white-space: nowrap;
+}
+.pv-fm-title-v {
+  letter-spacing: 2px;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.2;
+}
+/* FM vertical block: FAN + MEETING same width */
+.pv-fm-title-v-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; z-index: 5;
+  line-height: 1.1;
+}
+.pv-fm-line-fan {
+  letter-spacing: 1.2em;
+  text-indent: 1.2em;
+  background: linear-gradient(90deg, #C0C0C8, #E8E8F0, #7B61FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.pv-fm-line-meeting {
+  letter-spacing: 0.06em;
+  background: linear-gradient(90deg, #C0C0C8, #E8E8F0, #7B61FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.pv-fm-jp {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 500;
+  color: #8888a0;
+  position: relative; z-index: 5;
+}
+.pv-vslot-jp-sub {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 500;
+  color: #8888a0;
+  position: relative; z-index: 5;
+  text-align: center;
+}
+
+/* ══════════════════════════════════════
+   横 HORIZONTAL MODE — 7 rows, slots → RIGHT
+   ══════════════════════════════════════ */
+.pv-sched-h {
+  flex-direction: column;
+}
+
+/* ─── Row ─── */
+.pv-row {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  min-height: 0;
+  overflow: hidden;
+}
+.pv-row-day {
+  width: 72px; flex-shrink: 0;
+  display: flex; flex-direction: column;
+  align-items: flex-start; justify-content: center;
+  gap: 1px;
+  border-right: 2px solid;
+  border-color: var(--st-border, rgba(255,255,255,0.04));
+  padding: 0 8px 0 12px;
+}
+
+/* ─── Slots container (horizontal) ─── */
+.pv-row-slots {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  min-height: 0;
+}
+.pv-row-slots-h {
+  flex-direction: row;
+}
+
+/* ─── Slot card (horizontal row) ─── */
+.pv-slot {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: var(--st-card, #0c0c12);
+  position: relative;
+  overflow: hidden;
+  min-height: 0;
+  min-width: 0;
+  padding: 0 10px 0 8px;
+}
+.pv-slot-bar {
+  width: 3px; align-self: stretch;
+  background: var(--mc);
+  flex-shrink: 0;
+  position: relative; z-index: 4;
+  margin-right: 10px;
+}
+/* Background member icon (horizontal) */
+.pv-slot-bg {
+  position: absolute; inset: 0; z-index: 1;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.25;
+}
+.pv-slot-bg-fade {
+  position: absolute; inset: 0; z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    rgba(12,12,18,0.7) 0%,
+    rgba(12,12,18,0.3) 40%,
+    rgba(12,12,18,0.8) 100%);
+}
+.pv-slot-info {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column;
+  gap: 1px;
+  position: relative; z-index: 5;
+  padding: 3px 0;
+}
+.pv-slot-plat-zone {
+  width: 44px; flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; z-index: 5;
+  margin: 0 6px;
+}
+.pv-slot-jp {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  color: var(--st-text, #e0e0e8);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pv-slot-name {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--st-sub, #8888a0);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pv-slot-tag {
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 2px;
+  padding: 1px 5px;
+  border: 1px solid rgba(var(--mr), var(--mg), var(--mb), 0.25);
+  color: var(--mc);
+  display: inline-block;
+  align-self: flex-start;
+}
+.pv-slot-meta {
+  display: flex; flex-direction: column;
+  align-items: flex-end; justify-content: center;
+  gap: 2px; flex-shrink: 0;
+  position: relative; z-index: 5;
+  padding-right: 4px;
+}
+.pv-slot-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  background: linear-gradient(180deg, #e8e8f0, #8888a0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+.pv-slot-platform {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--st-muted, #555568);
+  letter-spacing: 1px;
+}
+
+/* ─── OFF row ─── */
+.pv-row-off {
+  opacity: 0.25;
+}
+.pv-row-body {
+  flex: 1;
+  display: flex; align-items: center;
+  padding: 0 20px;
+}
+
+/* ─── Fanmeeting row (horizontal) ─── */
+.pv-row-fm .pv-row-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+}
+.pv-row-fm .pv-row-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  background: linear-gradient(90deg, #C0C0C8, #7B61FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+  padding-right: 16px;
+  display: flex; align-items: center;
+}
+
+/* FM badge (combo in horizontal row) */
+.pv-slot-fm-badge {
+  background: linear-gradient(90deg,
+    rgba(61,90,241,0.06), rgba(0,229,160,0.05),
+    rgba(255,107,53,0.04), rgba(123,97,255,0.03),
+    transparent 70%) var(--st-card, #0a0a10);
+}
+.pv-slot-fm-badge .pv-slot-bar {
+  width: 4px;
+}
+
+/* ══════════════════════════════════════
+   縦 VERTICAL MODE — 7 columns, slots stack ↓ DOWN
+   ══════════════════════════════════════ */
+.pv-sched-v {
+  flex-direction: row;
+  padding: 4px 8px 4px;
+  gap: 2px;
+}
+
+/* ─── Column (one per day) ─── */
+.pv-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border-right: 1px solid var(--st-border, rgba(255,255,255,0.03));
+}
+.pv-col:last-child { border-right: none; }
+
+.pv-col-off { opacity: 0.25; }
+
+/* Day header (top of column) — two lines */
+.pv-col-day {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 2px 4px;
+  border-bottom: 2px solid rgba(var(--dcr,128), var(--dcg,128), var(--dcb,128), 0.25);
+  gap: 1px;
+}
+.pv-col-day-top {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+.pv-col-date {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--st-sub, #c0c0c8);
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+/* Slots stack down — fill available space */
+.pv-col-slots {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 2px 1px;
+  min-height: 0;
+}
+
+/* ─── Vertical slot card — flex:1 fills column ─── */
+.pv-vslot {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--st-card, #0c0c12);
+  position: relative;
+  overflow: hidden;
+  padding: 4px 2px;
+  gap: 3px;
+  min-height: 0;
+}
+.pv-vslot-bar {
+  width: 100%; height: 3px;
+  background: var(--mc);
+  flex-shrink: 0;
+  position: absolute; top: 0; left: 0;
+  z-index: 4;
+}
+/* Background member icon (vertical) */
+.pv-vslot-bg {
+  position: absolute; inset: 0; z-index: 1;
+  background-size: cover;
+  background-position: center top;
+  opacity: 0.2;
+}
+.pv-vslot-bg-fade {
+  position: absolute; inset: 0; z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(12,12,18,0.4) 0%,
+    rgba(12,12,18,0.2) 30%,
+    rgba(12,12,18,0.6) 70%,
+    rgba(12,12,18,0.85) 100%);
+}
+.pv-vslot-jp-main {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 100%;
+  position: relative; z-index: 5;
+}
+.pv-vslot-en {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-align: center;
+  color: var(--st-sub, #8888a0);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 100%;
+  position: relative; z-index: 5;
+}
+.pv-vslot-tag {
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1px;
+  padding: 1px 4px;
+  border: 1px solid rgba(var(--mr), var(--mg), var(--mb), 0.25);
+  color: var(--mc);
+  position: relative; z-index: 5;
+}
+.pv-vslot-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  background: linear-gradient(180deg, #e8e8f0, #8888a0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+  position: relative; z-index: 5;
+}
+/* (pv-vslot-jp removed — replaced by pv-vslot-jp-main + pv-vslot-en) */
+.pv-vslot-platform {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--st-muted, #555568);
+  letter-spacing: 1px;
+  position: relative; z-index: 2;
+}
+
+/* ─── OFF filler (vertical) ─── */
+.pv-vslot-off {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--st-card, #0c0c12);
+}
+
+/* ─── FM badge vertical ─── */
+.pv-vslot-fm {
+  background: linear-gradient(180deg,
+    rgba(61,90,241,0.06), rgba(123,97,255,0.04),
+    transparent 50%) var(--st-card, #0c0c12);
+  position: relative;
+  overflow: hidden;
+}
+.pv-vslot-fm::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3D5AF1, #00E5A0, #FF6B35, #7B61FF, #FF69B4);
+}
+
+/* ═══ DAY OFF ═══ */
+.pv-row-dayoff {
+  opacity: 0.55;
+}
+.pv-dayoff-body {
+  gap: 16px;
+}
+.pv-dayoff-icon {
+  font-size: 28px;
+  opacity: 0.35;
+  line-height: 1;
+}
+.pv-dayoff-text {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.pv-dayoff-label {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 400;
+  letter-spacing: 3px;
+  color: var(--st-muted, #555568);
+  position: relative; z-index: 5;
+}
+.pv-dayoff-jp {
+  font-weight: 500;
+  color: var(--st-muted, #555568);
+  position: relative; z-index: 5;
+}
+.pv-col-dayoff {
+  opacity: 0.55;
+}
+.pv-vslot-dayoff {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--st-card, #0c0c12);
+  position: relative;
+  overflow: hidden;
+}
+.pv-dayoff-icon-v {
+  font-size: 36px;
+  opacity: 0.35;
+  line-height: 1;
+  position: relative; z-index: 5;
+}
+.pv-dayoff-jp-v {
+  color: var(--st-text, #e0e0e8);
+  position: relative; z-index: 5;
+  text-align: center;
+  opacity: 0.8;
+}
+.pv-dayoff-en-v {
+  letter-spacing: 2px;
+  color: var(--st-muted, #555568);
+  position: relative; z-index: 5;
+  text-align: center;
+}
+
+/* ═══ FOOTER ═══ */
+.pv-footer {
+  flex: 0 0 36px;
+  position: relative; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 28px;
+  background: #08080c;
+  border-top: 1px solid #1a1a24;
+}
+.pv-footer span {
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 2px; color: #555568; opacity: 0.4;
+}
+.pv-footer-line {
+  flex: 1; height: 1px; margin: 0 16px;
+  background: linear-gradient(90deg, #2a2a3a 0%, #8888a0 20%, #e8e8f0 40%, #c0c0c8 50%, #4a4a5a 65%, #e0e0e8 80%, #8888a0 100%);
+  opacity: 0.15;
+}
