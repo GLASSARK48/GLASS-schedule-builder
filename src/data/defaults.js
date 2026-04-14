@@ -52,7 +52,7 @@ export function createDefaultSchedule() {
     // Font selections per category
     fonts: { ...DEFAULT_FONTS },
     // Font size scale (1 = default)
-    fontScale: 1.0,
+    fontScale: 1.35,
     // Icon background opacity (0~1)
     iconOpacity: 0.25,
     // Per-member icon position/scale
