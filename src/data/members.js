@@ -62,6 +62,8 @@ export const SCHEDULE_THEMES = [
   { id: 'noise-ember',  name: 'Nエンバー',   bg: '#0c0804', card: '#161008', text: '#e8c8a0', sub: '#a07850', muted: '#604828', border: 'rgba(200,120,60,0.06)', dayBorder: 0.2, noise: 'ember' },
   { id: 'noise-aurora', name: 'Nオーロラ',   bg: '#040810', card: '#081018', text: '#b0e0e8', sub: '#5898a0', muted: '#305860', border: 'rgba(80,200,220,0.06)', dayBorder: 0.2, noise: 'aurora' },
   { id: 'noise-acid',   name: 'Nアシッド',   bg: '#060a04', card: '#0c1408', text: '#c8f0a0', sub: '#78a850', muted: '#486028', border: 'rgba(140,220,60,0.06)', dayBorder: 0.2, noise: 'acid' },
+  // ── 蛍光フル ──
+  { id: 'fluo-toxic',   name: '蛍光トキシック', bg: '#020804', card: '#041008', text: '#39ff14', sub: '#00ff88', muted: '#00aa44', border: 'rgba(57,255,20,0.12)', dayBorder: 0.35 },
 ]
 
 // Title image blend / overlay modes
