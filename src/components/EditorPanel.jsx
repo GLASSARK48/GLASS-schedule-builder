@@ -191,15 +191,28 @@ export default function EditorPanel({ schedule, updateSchedule, updateDay, previ
     }
   }
 
-  // === Schedule-only export (actual size x2) ===
+  // === Schedule-only export (capture as-is, x2 resolution) ===
   const handleExportSchedule = async () => {
     if (!scheduleRef?.current || exporting) return
     setExporting(true)
+    const el = scheduleRef.current
     try {
-      const el = scheduleRef.current
+      const w = el.offsetWidth
+      const h = el.offsetHeight
+      const opts = {
+        width: w,
+        height: h,
+        pixelRatio: 2,
+        skipAutoScale: true,
+      }
+      if (fontCSSRef.current) opts.fontEmbedCSS = fontCSSRef.current
+      await toPng(el, opts)
+      const dataUrl = await toPng(el, opts)
+      const link = document.createElement('a')
       const suffix = isH ? 'h' : 'v'
-      await exportElement(el, el.offsetWidth, el.offsetHeight, 2,
-        `glass_sched_only_w${schedule.weekNumber}_${suffix}.png`)
+      link.download = `glass_sched_only_w${schedule.weekNumber}_${suffix}.png`
+      link.href = dataUrl
+      link.click()
     } catch (err) {
       console.error('Schedule export failed:', err)
       alert('Export failed: ' + err.message)
