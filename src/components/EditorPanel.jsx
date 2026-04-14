@@ -229,7 +229,7 @@ export default function EditorPanel({ schedule, updateSchedule, updateDay, previ
     <div className="editor-panel">
       <div className="panel-header">
         <h1>SCHEDULE BUILDER</h1>
-        <div className="sub">CHRONOVA 2026 — TOOL</div>
+        <div className="sub">GLASS 2026 — TOOL</div>
       </div>
 
       {/* Orientation toggle */}

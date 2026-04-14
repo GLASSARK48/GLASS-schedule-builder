@@ -121,7 +121,7 @@ function generateHTML(schedule) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CHRONOVA 2026 — Schedule W${schedule.weekNumber}</title>
+<title>GLASS 2026 — Schedule W${schedule.weekNumber}</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -244,7 +244,7 @@ ${dayCards}
 
   <!-- FOOTER -->
   <div class="footer">
-    <span>CHRONOVA 2026</span>
+    <span>GLASS 2026</span>
     <div class="chrome-line"></div>
     <span>WEEKLY SCHEDULE — W${schedule.weekNumber}</span>
   </div>
