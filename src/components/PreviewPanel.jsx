@@ -461,7 +461,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
             {renderSchedule()}
             {/* FOOTER */}
             <div className="pv-footer">
-              <span style={{ fontSize: 9 * fs }}>GLASS 2026</span>
+              <span style={{ fontSize: 9 * fs }}>CRNV 2026</span>
               <div className="pv-footer-line" />
               <span style={{ fontSize: 9 * fs }}>W{schedule.weekNumber}</span>
             </div>
