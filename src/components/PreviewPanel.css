@@ -332,14 +332,13 @@
   color: var(--st-text, #e0e0e8);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   line-height: 1.1;
-  padding-left: 2px;
+  margin-left: -1px;
 }
 .pv-slot-name {
   font-family: 'Outfit', sans-serif;
   font-weight: 500;
   letter-spacing: 1.5px;
   line-height: 1.1;
-  padding-left: 2px;
   color: var(--st-sub, #8888a0);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
