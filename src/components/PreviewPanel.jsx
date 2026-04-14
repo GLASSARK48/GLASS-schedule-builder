@@ -220,9 +220,9 @@ export default function PreviewPanel({ schedule, previewRef }) {
           <div className="pv-fm-line-meeting" style={{ fontSize: 13 * fs }}>MEETING</div>
         </div>
         <div className="pv-vslot-jp-sub" style={{ fontSize: 9 * fs, ...fJp }}>ファンミ</div>
-        <div className="pv-vslot-time" style={{ fontSize: 13 * fs, ...fTime }}>{schedule.fanmeeting.time}</div>
+        <div className="pv-vslot-time" style={{ fontSize: (adv.vSlotTimeSize || 20) * fs, ...fTime }}>{schedule.fanmeeting.time}</div>
         {ytIcon && <img className="pv-slot-plat-icon" src={ytIcon} alt="YouTube"
-          style={{ width: platSz, height: Math.round(platSz * 0.7), objectFit: 'contain' }} />}
+          style={{ width: (adv.platIconSize || 28), height: Math.round((adv.platIconSize || 28) * 0.7), objectFit: 'contain' }} />}
       </div>
     )
   }
