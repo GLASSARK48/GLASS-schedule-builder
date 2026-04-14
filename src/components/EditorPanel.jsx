@@ -447,19 +447,19 @@ export default function EditorPanel({ schedule, updateSchedule, updateDay, previ
             <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginTop: 8 }}>
               <div style={{ flex: 1 }}>
                 <label style={{ fontSize: 8, color: 'var(--t3)', fontFamily: "'JetBrains Mono', monospace" }}>X: {tp.x}%</label>
-                <input type="range" min="0" max="100" step="1" value={tp.x}
+                <input type="range" min="-50" max="150" step="1" value={tp.x}
                   onChange={e => updateTp('x', parseInt(e.target.value))}
                   style={{ width: '100%' }} />
               </div>
               <div style={{ flex: 1 }}>
                 <label style={{ fontSize: 8, color: 'var(--t3)', fontFamily: "'JetBrains Mono', monospace" }}>Y: {tp.y}%</label>
-                <input type="range" min="0" max="100" step="1" value={tp.y}
+                <input type="range" min="-50" max="150" step="1" value={tp.y}
                   onChange={e => updateTp('y', parseInt(e.target.value))}
                   style={{ width: '100%' }} />
               </div>
               <div style={{ flex: 1 }}>
                 <label style={{ fontSize: 8, color: 'var(--t3)', fontFamily: "'JetBrains Mono', monospace" }}>拡大: {tp.scale}%</label>
-                <input type="range" min="50" max="300" step="5" value={tp.scale}
+                <input type="range" min="50" max="400" step="5" value={tp.scale}
                   onChange={e => updateTp('scale', parseInt(e.target.value))}
                   style={{ width: '100%' }} />
               </div>
