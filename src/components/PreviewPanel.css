@@ -197,9 +197,7 @@
   font-family: 'Syne', sans-serif;
   font-weight: 800;
   letter-spacing: 3px;
-  background: linear-gradient(90deg, #C0C0C8, #E8E8F0, #7B61FF);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--st-text, #e0e0e8);
   white-space: nowrap;
 }
 .pv-fm-title-v {
@@ -219,15 +217,11 @@
 .pv-fm-line-fan {
   letter-spacing: 1.2em;
   text-indent: 1.2em;
-  background: linear-gradient(90deg, #C0C0C8, #E8E8F0, #7B61FF);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--st-text, #e0e0e8);
 }
 .pv-fm-line-meeting {
   letter-spacing: 0.06em;
-  background: linear-gradient(90deg, #C0C0C8, #E8E8F0, #7B61FF);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--st-text, #e0e0e8);
 }
 .pv-fm-jp {
   font-family: 'Noto Sans JP', sans-serif;
@@ -338,13 +332,14 @@
   color: var(--st-text, #e0e0e8);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   line-height: 1.1;
+  padding-left: 2px;
 }
 .pv-slot-name {
   font-family: 'Outfit', sans-serif;
   font-weight: 500;
   letter-spacing: 1.5px;
   line-height: 1.1;
-  padding-left: 1px;
+  padding-left: 2px;
   color: var(--st-sub, #8888a0);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
