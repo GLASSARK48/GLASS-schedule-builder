@@ -42,9 +42,9 @@ export function createDefaultSchedule() {
       title: 'FANMEETING',
     },
     // Images
-    titleImage: null,      // title zone background
-    titleOverlay: 0.55,    // title overlay opacity (0~1)
-    titleBlend: 'dark',    // title blend mode
+    titleImage: '/images/title-default.png',  // title zone background
+    titleOverlay: 0.3,     // title overlay opacity (0~1)
+    titleBlend: 'pal-screen',  // title blend mode
     snapImage: null,       // single snap zone image
     memberIcons,           // per-member icon images
     // Schedule zone color theme
