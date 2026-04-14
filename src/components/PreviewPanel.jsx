@@ -111,7 +111,7 @@ export default function PreviewPanel({ schedule, previewRef }) {
       return {
         ...base,
         backgroundPosition: `${ip.x}% ${ip.y}%`,
-        backgroundSize: 'contain',
+        backgroundSize: ip.scale === 100 ? 'contain' : `${ip.scale}%`,
         WebkitMaskImage: `${maskH}, ${maskV}`,
         WebkitMaskComposite: 'destination-in',
         maskImage: `${maskH}, ${maskV}`,

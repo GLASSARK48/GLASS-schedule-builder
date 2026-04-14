@@ -25,7 +25,7 @@ export function createDefaultSchedule() {
   const iconPositions = {} // { memberId: { x: 50, y: 50, scale: 100 } }
   MEMBERS.forEach(m => {
     memberIcons[m.id] = null
-    iconPositions[m.id] = { x: 50, y: 50, scale: 100, fade: false }
+    iconPositions[m.id] = { x: 50, y: 50, scale: 100, fade: true }
   })
 
   return {

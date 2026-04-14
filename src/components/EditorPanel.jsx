@@ -516,12 +516,12 @@ export default function EditorPanel({ schedule, updateSchedule, updateDay, previ
         {/* Per-icon position controls */}
         {MEMBERS.map(m => {
           if (!iconPosOpen[m.id] || !schedule.memberIcons[m.id]) return null
-          const pos = iconPos[m.id] || { x: 50, y: 50, scale: 100, fade: false }
+          const pos = iconPos[m.id] || { x: 50, y: 50, scale: 100, fade: true }
           const updatePos = (field, val) => updateSchedule(prev => ({
             ...prev,
             iconPositions: {
               ...prev.iconPositions,
-              [m.id]: { ...(prev.iconPositions?.[m.id] || { x: 50, y: 50, scale: 100, fade: false }), [field]: val }
+              [m.id]: { ...(prev.iconPositions?.[m.id] || { x: 50, y: 50, scale: 100, fade: true }), [field]: val }
             }
           }))
           return (
@@ -552,14 +552,12 @@ export default function EditorPanel({ schedule, updateSchedule, updateDay, previ
                     onChange={e => updatePos('y', parseInt(e.target.value))}
                     style={{ width: '100%' }} />
                 </div>
-                {!pos.fade && (
-                  <div style={{ flex: 1 }}>
+                <div style={{ flex: 1 }}>
                     <label style={{ fontSize: 8, color: 'var(--t3)' }}>拡大: {pos.scale}%</label>
                     <input type="range" min="20" max="600" step="5" value={pos.scale}
                       onChange={e => updatePos('scale', parseInt(e.target.value))}
                       style={{ width: '100%' }} />
-                  </div>
-                )}
+                </div>
               </div>
             </div>
           )
