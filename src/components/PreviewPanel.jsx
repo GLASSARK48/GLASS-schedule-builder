@@ -397,8 +397,8 @@ export default function PreviewPanel({ schedule, previewRef }) {
               <div key={li} className="pv-title-overlay" style={layerStyle} />
             ))}
             <div className="pv-title-content">
-              <span className="pv-brand" style={{ fontSize: 11 * fs }}>CHRONO REVERSE</span>
-              <span className="pv-label" style={{ fontSize: (adv.labelSize || 14) * fs, ...fLabel }}>WEEKLY SCHEDULE</span>
+              <span className="pv-brand" style={{ fontSize: (adv.brandSize || 18) * fs }}>CHRONO REVERSE</span>
+              <span className="pv-label" style={{ fontSize: (adv.labelSize || 20) * fs, ...fLabel }}>WEEKLY SCHEDULE</span>
               <h1 className="pv-title" style={{ fontSize: (adv.titleSize || 64) * fs, ...fDisplay }}>{title}</h1>
               <span className="pv-sub" style={{ fontSize: (adv.subSize || 16) * fs }}>— Week {schedule.weekNumber} —</span>
               <span className="pv-date" style={{ fontSize: (adv.dateSize || 18) * fs, ...fTime }}>

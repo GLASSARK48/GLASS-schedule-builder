@@ -642,7 +642,8 @@ export default function EditorPanel({ schedule, updateSchedule, updateDay, previ
             <div className="adv-group">
               <div className="adv-group-title">タイトルゾーン</div>
               {advField('タイトル', 'titleSize', 20, 80)}
-              {advField('ラベル', 'labelSize', 6, 20)}
+              {advField('ブランド名', 'brandSize', 8, 36)}
+              {advField('ラベル', 'labelSize', 8, 36)}
               {advField('サブタイトル', 'subSize', 6, 24)}
               {advField('日付', 'dateSize', 6, 30)}
             </div>
