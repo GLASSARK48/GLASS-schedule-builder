@@ -132,7 +132,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
   }
 
   /* ═══ SLOT RENDERER (横 horizontal) ═══ */
-  const renderSlot = (slot, si) => {
+  const renderSlot = (slot, si, slotCount = 1) => {
     const member = MEMBERS.find(m => m.id === slot.memberId)
     const mIcon = schedule.memberIcons[slot.memberId]
     const plat = PLATFORMS.find(p => p.id === slot.platform)
@@ -157,8 +157,13 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
           )}
           <div className="pv-slot-name" style={{ fontSize: (adv.slotEnSize || 12) * fs, ...fName }}>{member?.en}</div>
           {slot.tag && <span className="pv-slot-tag" style={{ fontSize: (adv.slotTagSize || 11) * fs, ...fLabel }}>{slot.tag}</span>}
-          {slot.title && <div className="pv-slot-title" style={{ fontSize: 11 * fs }}>{slot.title}</div>}
+          {slot.title && slotCount > 1 && <div className="pv-slot-title" style={{ fontSize: 11 * fs }}>{slot.title}</div>}
         </div>
+        {slot.title && slotCount === 1 && (
+          <div className="pv-slot-title-solo" style={{ fontSize: 16 * fs }}>
+            {slot.title}
+          </div>
+        )}
         <div className="pv-slot-plat-zone">
           {platIcon ? (
             <img className="pv-slot-plat-icon" src={platIcon} alt={plat.label}
@@ -215,7 +220,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
   )
 
   /* ─── Vertical slot ─── */
-  const renderSlotV = (slot, si) => {
+  const renderSlotV = (slot, si, slotCount = 1) => {
     const member = MEMBERS.find(m => m.id === slot.memberId)
     const mIcon = schedule.memberIcons[slot.memberId]
     const plat = PLATFORMS.find(p => p.id === slot.platform)
@@ -239,7 +244,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
         )}
         <div className="pv-vslot-en" style={{ fontSize: (adv.vSlotEnSize || 11) * fs, ...fName }}>{member?.en}</div>
         {slot.tag && <span className="pv-vslot-tag" style={{ fontSize: (adv.vSlotTagSize || 10) * fs, ...fLabel }}>{slot.tag}</span>}
-        {slot.title && <div className="pv-vslot-title" style={{ fontSize: 10 * fs }}>{slot.title}</div>}
+        {slot.title && <div className={slotCount === 1 ? 'pv-vslot-title-solo' : 'pv-vslot-title'} style={{ fontSize: (slotCount === 1 ? 14 : 10) * fs }}>{slot.title}</div>}
         <div className="pv-vslot-time" style={{ fontSize: (adv.vSlotTimeSize || 20) * fs, ...fTime }}>{slot.time}</div>
         {platIcon ? (
           <img className="pv-slot-plat-icon" src={platIcon} alt={plat.label}
@@ -346,7 +351,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
                   <span className="pv-day-date" style={{ fontSize: (adv.dayDateSize || 13) * fs }}>{dateShort}</span>
                 </div>
                 <div className="pv-row-slots pv-row-slots-h">
-                  {day.slots.map((slot, si) => renderSlot(slot, si))}
+                  {day.slots.map((slot, si) => renderSlot(slot, si, day.slots.length))}
                   {isFM && renderFmBadge(day.slots.length > 0)}
                 </div>
               </div>
@@ -390,7 +395,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
                     <span className="pv-off-label" style={{ fontSize: 11 * fs }}>OFF</span>
                   </div>
                 )}
-                {!isDayOff && day.slots.map((slot, si) => renderSlotV(slot, si))}
+                {!isDayOff && day.slots.map((slot, si) => renderSlotV(slot, si, day.slots.length))}
                 {!isDayOff && isFM && renderFmBadgeV()}
               </div>
             </div>

@@ -375,6 +375,28 @@
   max-width: 100%;
   position: relative; z-index: 5;
 }
+/* Solo title — single stream per day, shown between info and plat zone */
+.pv-slot-title-solo {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  color: var(--st-text, #e0e0e8);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  position: relative; z-index: 5;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pv-vslot-title-solo {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  color: var(--st-text, #e0e0e8);
+  text-align: center;
+  position: relative; z-index: 5;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 100%;
+  margin: 4px 0;
+}
 .pv-slot-meta {
   display: flex; flex-direction: column;
   align-items: flex-end; justify-content: center;
