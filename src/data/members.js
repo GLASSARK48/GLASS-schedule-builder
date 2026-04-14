@@ -11,7 +11,7 @@ export const TAGS = ['TALK', 'GAME', 'SING', 'ASMR', 'COLLAB', 'CRAFT', 'CHAT', 
 
 export const PLATFORMS = [
   { id: 'youtube', label: 'YouTube', icon: '/icons/youtube.svg' },
-  { id: 'twitcast', label: 'TwitCast', icon: '/icons/twitcast.svg' },
+  { id: 'twitcast', label: 'TwitCast', icon: '/icons/twitcast.png' },
   { id: 'other', label: 'その他', icon: null },
 ]
 
