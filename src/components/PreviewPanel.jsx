@@ -155,6 +155,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
           )}
           <div className="pv-slot-name" style={{ fontSize: (adv.slotEnSize || 12) * fs, ...fName }}>{member?.en}</div>
           {slot.tag && <span className="pv-slot-tag" style={{ fontSize: (adv.slotTagSize || 11) * fs, ...fLabel }}>{slot.tag}</span>}
+          {slot.title && <div className="pv-slot-title" style={{ fontSize: 9 * fs }}>{slot.title}</div>}
         </div>
         <div className="pv-slot-plat-zone">
           {platIcon ? (
@@ -236,6 +237,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
         )}
         <div className="pv-vslot-en" style={{ fontSize: (adv.vSlotEnSize || 11) * fs, ...fName }}>{member?.en}</div>
         {slot.tag && <span className="pv-vslot-tag" style={{ fontSize: (adv.vSlotTagSize || 10) * fs, ...fLabel }}>{slot.tag}</span>}
+        {slot.title && <div className="pv-vslot-title" style={{ fontSize: 8 * fs }}>{slot.title}</div>}
         <div className="pv-vslot-time" style={{ fontSize: (adv.vSlotTimeSize || 20) * fs, ...fTime }}>{slot.time}</div>
         {platIcon ? (
           <img className="pv-slot-plat-icon" src={platIcon} alt={plat.label}

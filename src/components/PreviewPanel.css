@@ -318,9 +318,11 @@
 .pv-slot-info {
   flex: 1; min-width: 0;
   display: flex; flex-direction: column;
+  justify-content: center;
   gap: 1px;
   position: relative; z-index: 5;
   padding: 3px 0;
+  overflow: visible;
 }
 .pv-slot-plat-zone {
   width: 44px; flex-shrink: 0;
@@ -354,6 +356,21 @@
   color: var(--mc);
   display: inline-block;
   align-self: flex-start;
+}
+.pv-slot-title {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--st-muted, #555568);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 100%;
+  position: relative; z-index: 5;
+}
+.pv-vslot-title {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--st-muted, #555568);
+  text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 100%;
+  position: relative; z-index: 5;
 }
 .pv-slot-meta {
   display: flex; flex-direction: column;
@@ -411,6 +428,7 @@
     rgba(61,90,241,0.06), rgba(0,229,160,0.05),
     rgba(255,107,53,0.04), rgba(123,97,255,0.03),
     transparent 70%) var(--st-card, #0a0a10);
+  overflow: visible;
 }
 .pv-slot-fm-badge .pv-slot-bar {
   width: 4px;
