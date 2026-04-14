@@ -608,18 +608,34 @@ export default function EditorPanel({ schedule, updateSchedule, updateDay, previ
           </div>
         </div>
         {schedule.fanmeeting.enabled && (
-          <div className="field-row" style={{ marginTop: 8 }}>
-            <div className="field">
-              <label>時間</label>
-              <input type="time" value={schedule.fanmeeting.time}
-                onChange={e => updateSchedule(prev => ({ ...prev, fanmeeting: { ...prev.fanmeeting, time: e.target.value } }))} />
+          <>
+            <div className="field-row" style={{ marginTop: 8 }}>
+              <div className="field">
+                <label>時間</label>
+                <input type="time" value={schedule.fanmeeting.time}
+                  onChange={e => updateSchedule(prev => ({ ...prev, fanmeeting: { ...prev.fanmeeting, time: e.target.value } }))} />
+              </div>
+              <div className="field">
+                <label>ENタイトル</label>
+                <input type="text" value={schedule.fanmeeting.title}
+                  onChange={e => updateSchedule(prev => ({ ...prev, fanmeeting: { ...prev.fanmeeting, title: e.target.value } }))} />
+              </div>
             </div>
-            <div className="field">
-              <label>タイトル</label>
-              <input type="text" value={schedule.fanmeeting.title}
-                onChange={e => updateSchedule(prev => ({ ...prev, fanmeeting: { ...prev.fanmeeting, title: e.target.value } }))} />
+            <div className="field-row" style={{ marginTop: 4 }}>
+              <div className="field">
+                <label>JPタイトル</label>
+                <input type="text" value={schedule.fanmeeting.titleJp ?? 'ファンミ'}
+                  onChange={e => updateSchedule(prev => ({ ...prev, fanmeeting: { ...prev.fanmeeting, titleJp: e.target.value } }))} />
+              </div>
+              <div className="field">
+                <label>JP文字サイズ — {schedule.fanmeeting.titleJpSize || 12}</label>
+                <input type="range" min="8" max="32" step="1"
+                  value={schedule.fanmeeting.titleJpSize || 12}
+                  onChange={e => updateSchedule(prev => ({ ...prev, fanmeeting: { ...prev.fanmeeting, titleJpSize: parseInt(e.target.value) } }))}
+                  style={{ width: '100%' }} />
+              </div>
             </div>
-          </div>
+          </>
         )}
       </div>
 

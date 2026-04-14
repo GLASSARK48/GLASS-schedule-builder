@@ -199,7 +199,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
             </div>
           </div>
         )}
-        <div className="pv-fm-jp" style={{ fontSize: (compact ? 9 : (adv.slotEnSize || 12)) * fs, ...fJp }}>ファンミ</div>
+        <div className="pv-fm-jp" style={{ fontSize: (compact ? 9 : (schedule.fanmeeting.titleJpSize || 12)) * fs, ...fJp }}>{schedule.fanmeeting.titleJp ?? 'ファンミ'}</div>
       </div>
       <div className="pv-slot-plat-zone">
         {ytIcon && <img className="pv-slot-plat-icon" src={ytIcon} alt="YouTube"
@@ -264,7 +264,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
           <div className="pv-fm-line-fan" style={{ fontSize: 13 * fs }}>FAN</div>
           <div className="pv-fm-line-meeting" style={{ fontSize: 13 * fs }}>MEETING</div>
         </div>
-        <div className="pv-vslot-jp-sub" style={{ fontSize: 9 * fs, ...fJp }}>ファンミ</div>
+        <div className="pv-vslot-jp-sub" style={{ fontSize: (schedule.fanmeeting.titleJpSize || 12) * fs * 0.75, ...fJp }}>{schedule.fanmeeting.titleJp ?? 'ファンミ'}</div>
         <div className="pv-vslot-time" style={{ fontSize: (adv.vSlotTimeSize || 20) * fs, ...fTime }}>{schedule.fanmeeting.time}</div>
         {ytIcon && <img className="pv-slot-plat-icon" src={ytIcon} alt="YouTube"
           style={{ width: (adv.platIconSize || 28), height: Math.round((adv.platIconSize || 28) * 0.7), objectFit: 'contain' }} />}
