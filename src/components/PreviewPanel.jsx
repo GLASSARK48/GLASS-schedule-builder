@@ -392,7 +392,13 @@ export default function PreviewPanel({ schedule, previewRef }) {
         <div ref={previewRef} className="preview-frame" style={palVars}>
 
           {/* ZONE 1: TITLE */}
-          <div className="pv-title-zone" style={{ background: titleBg }}>
+          <div className="pv-title-zone">
+            {schedule.titleImage && (
+              <div className="pv-title-bg" style={{ background: titleBg }} />
+            )}
+            {!schedule.titleImage && (
+              <div className="pv-title-bg pv-title-bg-grad" style={{ background: titleBg }} />
+            )}
             {getTitleOverlayLayers().map((layerStyle, li) => (
               <div key={li} className="pv-title-overlay" style={layerStyle} />
             ))}
