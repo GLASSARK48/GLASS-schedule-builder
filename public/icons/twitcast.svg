@@ -1,25 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#00C8FF"/>
-      <stop offset="100%" stop-color="#0088FF"/>
+    <linearGradient id="tc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#09A0F0"/>
+      <stop offset="100%" stop-color="#00E8A0"/>
     </linearGradient>
   </defs>
-  <rect width="120" height="120" rx="24" fill="url(#bg)"/>
+  <rect width="120" height="120" rx="22" fill="url(#tc)"/>
   <!-- Bird body -->
-  <ellipse cx="62" cy="52" rx="32" ry="30" fill="#FFF"/>
+  <ellipse cx="66" cy="62" rx="34" ry="32" fill="#FFF"/>
   <!-- Head tuft -->
-  <path d="M72 22 Q78 18 74 28 Q70 24 72 22z" fill="#FFF"/>
+  <path d="M78 30 Q84 18 80 14 Q74 22 72 30Z" fill="#FFF"/>
+  <!-- Tail feathers -->
+  <path d="M32 58 Q16 48 14 36 Q24 44 34 48Z" fill="#FFF"/>
+  <path d="M30 64 Q12 60 8 50 Q20 56 32 58Z" fill="#FFF"/>
+  <!-- Screen/device held by bird -->
+  <rect x="28" y="56" width="20" height="20" rx="4" fill="url(#tc)"/>
   <!-- Eye -->
-  <circle cx="54" cy="48" r="4" fill="#0088FF"/>
-  <circle cx="54" cy="48" r="1.5" fill="#FFF"/>
+  <ellipse cx="76" cy="56" rx="4.5" ry="5" fill="url(#tc)"/>
   <!-- Beak -->
-  <path d="M42 54 L50 50 L50 58z" fill="#0088FF"/>
-  <!-- Wing -->
-  <path d="M36 60 Q28 52 30 42 Q34 50 42 52z" fill="#0088FF" opacity="0.7"/>
-  <!-- Small bird on wing -->
-  <ellipse cx="32" cy="62" rx="12" ry="10" fill="#0088FF"/>
-  <circle cx="28" cy="60" r="2.5" fill="#FFF"/>
-  <circle cx="28" cy="60" r="1" fill="#0088FF"/>
-  <path d="M22 64 L28 61 L28 67z" fill="#0088FF" stroke="#FFF" stroke-width="0.5"/>
+  <path d="M64 68 L68.5 64 L68.5 72Z" fill="url(#tc)"/>
 </svg>

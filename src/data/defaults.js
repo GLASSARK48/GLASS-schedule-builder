@@ -32,7 +32,7 @@ export function createDefaultSchedule() {
     weekNumber: weekNum,
     startDate: formatDate(monday),
     endDate: formatDate(new Date(monday.getTime() + 6 * 86400000)),
-    palette: 'A',
+    palette: 'C',
     orientation: 'portrait',   // 'portrait' | 'landscape'
     scheduleTitle: 'SCHEDULE', // editable title text
     days,

@@ -34,8 +34,8 @@ export const JP_WEIGHT_OPTIONS = [
 
 // Default font selections
 export const DEFAULT_FONTS = {
-  fontJp: 'zen-kaku',
-  fontJpWeight: 900,
+  fontJp: 'cezanne',
+  fontJpWeight: 700,
 }
 
 // Helper: get JP font style
