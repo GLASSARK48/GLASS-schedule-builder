@@ -225,6 +225,7 @@
    ══════════════════════════════════════ */
 .pv-sched-h {
   flex-direction: column;
+  padding-left: 0;
 }
 
 /* ─── Row ─── */
@@ -236,13 +237,13 @@
   overflow: hidden;
 }
 .pv-row-day {
-  width: 64px; flex-shrink: 0;
+  width: 80px; flex-shrink: 0;
   display: flex; flex-direction: column;
   align-items: flex-start; justify-content: center;
   gap: 1px;
   border-right: 2px solid;
   border-color: var(--st-border, rgba(255,255,255,0.04));
-  padding: 0 6px 0 4px;
+  padding: 0 6px 0 0;
 }
 
 /* ─── Slots container (horizontal) ─── */
