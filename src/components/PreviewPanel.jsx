@@ -39,9 +39,13 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
   }
 
   const titlePos = schedule.titleImagePos || { x: 50, y: 50, scale: 100 }
-  const titleBg = schedule.titleImage
-    ? `url(${schedule.titleImage}) ${titlePos.x}% ${titlePos.y}% / ${titlePos.scale === 100 ? 'cover' : titlePos.scale + '%'} no-repeat`
-    : `linear-gradient(135deg, ${pal.colors[0]} 0%, ${pal.colors[1] || pal.colors[0]} 20%, ${pal.colors[2] || '#888'} 50%, ${pal.colors[3] || '#ccc'} 75%, ${pal.colors[4] || '#f36'} 100%)`
+  const titleImgStyle = schedule.titleImage ? {
+    backgroundImage: `url(${schedule.titleImage})`,
+    backgroundPosition: `${titlePos.x}% ${titlePos.y}%`,
+    backgroundSize: titlePos.scale === 100 ? 'cover' : `${titlePos.scale}%`,
+    backgroundRepeat: 'no-repeat',
+  } : {}
+  const titleGradBg = `linear-gradient(135deg, ${pal.colors[0]} 0%, ${pal.colors[1] || pal.colors[0]} 20%, ${pal.colors[2] || '#888'} 50%, ${pal.colors[3] || '#ccc'} 75%, ${pal.colors[4] || '#f36'} 100%)`
 
   const titleBlend = schedule.titleBlend || 'dark'
   const titleOp = schedule.titleOverlay ?? 0.55
@@ -155,7 +159,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
         <div className="pv-slot-plat-zone">
           {platIcon ? (
             <img className="pv-slot-plat-icon" src={platIcon} alt={plat.label}
-              style={{ width: (adv.platIconSize || 28), height: Math.round((adv.platIconSize || 28) * 0.7), objectFit: 'contain' }} />
+              style={{ width: (adv.platIconSize || 28) * (plat?.iconScale || 1), height: Math.round((adv.platIconSize || 28) * 0.7 * (plat?.iconScale || 1)), objectFit: 'contain' }} />
           ) : (
             plat?.label && <div className="pv-slot-platform" style={{ fontSize: 9 * fs }}>{plat.label}</div>
           )}
@@ -232,7 +236,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
         <div className="pv-vslot-time" style={{ fontSize: (adv.vSlotTimeSize || 20) * fs, ...fTime }}>{slot.time}</div>
         {platIcon ? (
           <img className="pv-slot-plat-icon" src={platIcon} alt={plat.label}
-            style={{ width: (adv.platIconSize || 28), height: Math.round((adv.platIconSize || 28) * 0.7), objectFit: 'contain' }} />
+            style={{ width: (adv.platIconSize || 28) * (plat?.iconScale || 1), height: Math.round((adv.platIconSize || 28) * 0.7 * (plat?.iconScale || 1)), objectFit: 'contain' }} />
         ) : (
           <div className="pv-vslot-platform" style={{ fontSize: 9 * fs }}>
             {plat?.label || slot.platform}
@@ -394,10 +398,10 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
           {/* ZONE 1: TITLE */}
           <div className="pv-title-zone">
             {schedule.titleImage && (
-              <div className="pv-title-bg" style={{ background: titleBg, opacity: schedule.titleOverlay ?? 0.55 }} />
+              <div className="pv-title-bg" style={{ ...titleImgStyle, opacity: schedule.titleOverlay ?? 0.55 }} />
             )}
             {!schedule.titleImage && (
-              <div className="pv-title-bg pv-title-bg-grad" style={{ background: titleBg }} />
+              <div className="pv-title-bg pv-title-bg-grad" style={{ background: titleGradBg }} />
             )}
             {getTitleOverlayLayers().map((layerStyle, li) => (
               <div key={li} className="pv-title-overlay" style={layerStyle} />

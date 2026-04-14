@@ -10,8 +10,8 @@ export const MEMBERS = [
 export const TAGS = ['TALK', 'GAME', 'SING', 'ASMR', 'COLLAB', 'CRAFT', 'CHAT', 'WATCH', 'DRAW', 'OTHER']
 
 export const PLATFORMS = [
-  { id: 'youtube', label: 'YouTube', icon: '/icons/youtube.svg' },
-  { id: 'twitcast', label: 'TwitCast', icon: '/icons/twitcast.png' },
+  { id: 'youtube', label: 'YouTube', icon: '/icons/youtube.svg', iconScale: 1 },
+  { id: 'twitcast', label: 'TwitCast', icon: '/icons/twitcast.png', iconScale: 1.35 },
   { id: 'other', label: 'その他', icon: null },
 ]
 
