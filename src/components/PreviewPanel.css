@@ -548,7 +548,7 @@
 
 /* ─── FM badge vertical ─── */
 .pv-vslot-fm {
-  background: linear-gradient(180deg,
+  background: linear-gradient(90deg,
     rgba(61,90,241,0.06), rgba(123,97,255,0.04),
     transparent 50%) var(--st-card, #0c0c12);
   position: relative;

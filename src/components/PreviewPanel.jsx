@@ -246,7 +246,7 @@ export default function PreviewPanel({ schedule, previewRef }) {
   const renderFmBadgeV = () => {
     return (
       <div className="pv-vslot pv-vslot-fm">
-        <div className="pv-vslot-bar" style={{ background: FM_GRAD }} />
+        <div className="pv-vslot-bar" style={{ background: 'linear-gradient(90deg, #3D5AF1, #00E5A0, #FF6B35, #7B61FF, #FF69B4)' }} />
         <div className="pv-fm-dots-row" style={{ justifyContent: 'center' }}>
           {MEMBERS.map(m => <div key={m.id} className="pv-fm-dot-h" style={{ background: m.color, width: 10, height: 3 }} />)}
         </div>
