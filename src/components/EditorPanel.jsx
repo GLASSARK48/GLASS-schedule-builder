@@ -191,13 +191,14 @@ export default function EditorPanel({ schedule, updateSchedule, updateDay, previ
     }
   }
 
-  // === Schedule-only export (1920x1080) ===
+  // === Schedule-only export (actual size x2) ===
   const handleExportSchedule = async () => {
     if (!scheduleRef?.current || exporting) return
     setExporting(true)
     try {
+      const el = scheduleRef.current
       const suffix = isH ? 'h' : 'v'
-      await exportElement(scheduleRef.current, 1920, 1080, 1,
+      await exportElement(el, el.offsetWidth, el.offsetHeight, 2,
         `glass_sched_only_w${schedule.weekNumber}_${suffix}.png`)
     } catch (err) {
       console.error('Schedule export failed:', err)
@@ -722,7 +723,7 @@ export default function EditorPanel({ schedule, updateSchedule, updateDay, previ
           {exporting ? 'エクスポート中...' : 'EXPORT 全体 (2160×2880)'}
         </button>
         <button className="btn btn-sm" onClick={handleExportSchedule} disabled={exporting} style={{ width: '100%', opacity: exporting ? 0.5 : 1, fontSize: 10, padding: '6px 10px' }}>
-          {exporting ? 'エクスポート中...' : 'EXPORT スケジュールのみ (1920×1080)'}
+          {exporting ? 'エクスポート中...' : 'EXPORT スケジュールのみ (x2)'}
         </button>
       </div>
     </div>
