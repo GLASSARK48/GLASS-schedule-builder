@@ -358,15 +358,18 @@
   align-self: flex-start;
 }
 .pv-slot-title {
-  font-family: 'JetBrains Mono', monospace;
-  color: var(--st-muted, #555568);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  color: var(--st-sub, #8888a0);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   max-width: 100%;
   position: relative; z-index: 5;
+  margin-top: 1px;
 }
 .pv-vslot-title {
-  font-family: 'JetBrains Mono', monospace;
-  color: var(--st-muted, #555568);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  color: var(--st-sub, #8888a0);
   text-align: center;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   max-width: 100%;
