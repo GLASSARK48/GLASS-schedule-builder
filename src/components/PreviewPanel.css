@@ -131,10 +131,12 @@
 
 /* ═══ SHARED TYPOGRAPHY ═══ */
 .pv-dow {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Orbitron', sans-serif;
   font-weight: 700;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   color: var(--st-text, #e0e0e8);
+  display: inline-block;
+  min-width: 3.5em;
 }
 .pv-dow-jp {
   font-family: 'Noto Sans JP', sans-serif;
