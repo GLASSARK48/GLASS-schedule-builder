@@ -53,43 +53,43 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
       case 'none':
         return []
       case 'dark':
-        return [{ background: `linear-gradient(180deg, rgba(0,0,0,${titleOp * 0.09}) 0%, rgba(0,0,0,${titleOp}) 100%)` }]
+        return [{ background: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 100%)' }]
       case 'pal-overlay':
         return [
-          { background: palGrad, mixBlendMode: 'overlay', opacity: titleOp },
-          { background: `linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.5) 100%)` },
+          { background: palGrad, mixBlendMode: 'overlay', opacity: 0.55 },
+          { background: 'linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.5) 100%)' },
         ]
       case 'pal-multi':
         return [
-          { background: palGrad, mixBlendMode: 'multiply', opacity: titleOp },
-          { background: `linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.4) 100%)` },
+          { background: palGrad, mixBlendMode: 'multiply', opacity: 0.55 },
+          { background: 'linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.4) 100%)' },
         ]
       case 'pal-screen':
         return [
-          { background: palGrad, mixBlendMode: 'screen', opacity: titleOp * 0.7 },
-          { background: `linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.55) 100%)` },
+          { background: palGrad, mixBlendMode: 'screen', opacity: 0.4 },
+          { background: 'linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.55) 100%)' },
         ]
       case 'pal-soft':
         return [
-          { background: palGrad, mixBlendMode: 'soft-light', opacity: titleOp },
-          { background: `linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.45) 100%)` },
+          { background: palGrad, mixBlendMode: 'soft-light', opacity: 0.55 },
+          { background: 'linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.45) 100%)' },
         ]
       case 'pal-hue':
         return [
-          { background: palGrad, mixBlendMode: 'hue', opacity: titleOp },
-          { background: `linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.5) 100%)` },
+          { background: palGrad, mixBlendMode: 'hue', opacity: 0.55 },
+          { background: 'linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.5) 100%)' },
         ]
       case 'pal-bottom':
         return [
-          { background: `linear-gradient(180deg, transparent 20%, ${pal.colors[0]}cc 60%, ${pal.colors[4] || pal.colors[2] || '#f36'}ee 100%)`, opacity: titleOp },
+          { background: `linear-gradient(180deg, transparent 20%, ${pal.colors[0]}cc 60%, ${pal.colors[4] || pal.colors[2] || '#f36'}ee 100%)`, opacity: 0.55 },
         ]
       case 'chrome':
         return [
-          { background: chromeGrad, mixBlendMode: 'overlay', opacity: titleOp * 0.6 },
-          { background: `linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.5) 100%)` },
+          { background: chromeGrad, mixBlendMode: 'overlay', opacity: 0.35 },
+          { background: 'linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.5) 100%)' },
         ]
       default:
-        return [{ background: `linear-gradient(180deg, rgba(0,0,0,${titleOp * 0.09}) 0%, rgba(0,0,0,${titleOp}) 100%)` }]
+        return [{ background: 'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 100%)' }]
     }
   }
 
@@ -394,7 +394,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
           {/* ZONE 1: TITLE */}
           <div className="pv-title-zone">
             {schedule.titleImage && (
-              <div className="pv-title-bg" style={{ background: titleBg }} />
+              <div className="pv-title-bg" style={{ background: titleBg, opacity: schedule.titleOverlay ?? 0.55 }} />
             )}
             {!schedule.titleImage && (
               <div className="pv-title-bg pv-title-bg-grad" style={{ background: titleBg }} />
