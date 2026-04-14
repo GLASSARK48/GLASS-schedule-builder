@@ -43,6 +43,7 @@ export const PALETTES = {
 
 // Schedule zone color themes
 export const SCHEDULE_THEMES = [
+  // ── ベーシック ──
   { id: 'dark',    name: 'ダーク',       bg: '#060608', card: '#0c0c12', text: '#e0e0e8', sub: '#8888a0', muted: '#555568', border: 'rgba(255,255,255,0.04)', dayBorder: 0.25 },
   { id: 'white',   name: 'ホワイト',     bg: '#f4f4f6', card: '#ffffff', text: '#1a1a2e', sub: '#5a5a70', muted: '#9999aa', border: 'rgba(0,0,0,0.08)', dayBorder: 0.15 },
   { id: 'navy',    name: 'ネイビー',     bg: '#0a1020', card: '#0f1830', text: '#c8d4e8', sub: '#6878a0', muted: '#3a4868', border: 'rgba(100,140,220,0.08)', dayBorder: 0.2 },
@@ -51,6 +52,16 @@ export const SCHEDULE_THEMES = [
   { id: 'violet',  name: 'バイオレット', bg: '#100a1a', card: '#180e28', text: '#d8d0e8', sub: '#8878a8', muted: '#584880', border: 'rgba(140,100,240,0.08)', dayBorder: 0.2 },
   { id: 'amber',   name: 'アンバー',     bg: '#14100a', card: '#201a0e', text: '#e8dcc8', sub: '#a89068', muted: '#68583a', border: 'rgba(200,160,80,0.08)', dayBorder: 0.2 },
   { id: 'slate',   name: 'スレート',     bg: '#0e1014', card: '#161a20', text: '#d0d4dc', sub: '#7880a0', muted: '#484e68', border: 'rgba(120,140,180,0.08)', dayBorder: 0.2 },
+  // ── 蛍光 / ネオン ──
+  { id: 'neon-pink',  name: 'ネオンピンク',  bg: '#0a0008', card: '#140010', text: '#ff69b4', sub: '#ff3390', muted: '#80205a', border: 'rgba(255,105,180,0.1)', dayBorder: 0.3 },
+  { id: 'neon-cyan',  name: 'ネオンシアン',  bg: '#000a0c', card: '#001418', text: '#00ffdd', sub: '#00ccaa', muted: '#206860', border: 'rgba(0,255,220,0.1)', dayBorder: 0.3 },
+  { id: 'neon-lime',  name: 'ネオンライム',  bg: '#040a00', card: '#0a1400', text: '#b0ff00', sub: '#88cc00', muted: '#446600', border: 'rgba(176,255,0,0.1)', dayBorder: 0.3 },
+  { id: 'neon-orange', name: 'ネオンオレンジ', bg: '#0c0600', card: '#180c00', text: '#ff8800', sub: '#cc6600', muted: '#664400', border: 'rgba(255,136,0,0.1)', dayBorder: 0.3 },
+  // ── ノイズグラデーション ──
+  { id: 'noise-void',   name: 'Nボイド',     bg: '#08080c', card: '#0e0e14', text: '#c0c0d0', sub: '#6868a0', muted: '#404060', border: 'rgba(100,100,180,0.06)', dayBorder: 0.2, noise: 'void' },
+  { id: 'noise-ember',  name: 'Nエンバー',   bg: '#0c0804', card: '#161008', text: '#e8c8a0', sub: '#a07850', muted: '#604828', border: 'rgba(200,120,60,0.06)', dayBorder: 0.2, noise: 'ember' },
+  { id: 'noise-aurora', name: 'Nオーロラ',   bg: '#040810', card: '#081018', text: '#b0e0e8', sub: '#5898a0', muted: '#305860', border: 'rgba(80,200,220,0.06)', dayBorder: 0.2, noise: 'aurora' },
+  { id: 'noise-acid',   name: 'Nアシッド',   bg: '#060a04', card: '#0c1408', text: '#c8f0a0', sub: '#78a850', muted: '#486028', border: 'rgba(140,220,60,0.06)', dayBorder: 0.2, noise: 'acid' },
 ]
 
 // Title image blend / overlay modes

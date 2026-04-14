@@ -459,6 +459,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
           {/* ZONE 3: SCHEDULE */}
           <div ref={scheduleRef} className="pv-schedule-export-wrap" style={palVars}>
             {renderSchedule()}
+            {sTheme.noise && <div className={`pv-sched-noise pv-sched-noise-${sTheme.noise}`} />}
             {/* FOOTER */}
             <div className="pv-footer">
               <span style={{ fontSize: 9 * fs }}>CRNV 2026</span>
