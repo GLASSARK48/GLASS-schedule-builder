@@ -23,6 +23,7 @@ function loadSavedSchedule() {
 export default function App() {
   const [schedule, setSchedule] = useState(loadSavedSchedule)
   const previewRef = useRef(null)
+  const scheduleRef = useRef(null)
 
   // Auto-save to localStorage on every change
   useEffect(() => {
@@ -59,9 +60,10 @@ export default function App() {
         updateSchedule={updateSchedule}
         updateDay={updateDay}
         previewRef={previewRef}
+        scheduleRef={scheduleRef}
         resetSchedule={resetSchedule}
       />
-      <PreviewPanel schedule={schedule} previewRef={previewRef} />
+      <PreviewPanel schedule={schedule} previewRef={previewRef} scheduleRef={scheduleRef} />
     </div>
   )
 }

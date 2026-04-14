@@ -5,7 +5,7 @@ import { getWeekNumber, formatDate } from '../data/defaults'
 import { JP_FONT_OPTIONS, JP_WEIGHT_OPTIONS, DEFAULT_FONTS } from '../data/fonts'
 import DayEditor from './DayEditor'
 
-export default function EditorPanel({ schedule, updateSchedule, updateDay, previewRef, resetSchedule }) {
+export default function EditorPanel({ schedule, updateSchedule, updateDay, previewRef, scheduleRef, resetSchedule }) {
   const fileRef = useRef(null)
   const isH = schedule.orientation === 'landscape'
   const [advancedOpen, setAdvancedOpen] = useState(false)
@@ -101,81 +101,108 @@ export default function EditorPanel({ schedule, updateSchedule, updateDay, previ
     embedFonts()
   }, [])
 
-  // === PNG Export (fixed 1080x1440) ===
+  // === Generic export helper ===
   const [exporting, setExporting] = useState(false)
-  const handleExportPNG = async () => {
-    if (!previewRef.current || exporting) return
-    setExporting(true)
-    const el = previewRef.current
-    const wrapper = el.parentElement // .preview-scale-wrapper
-    const panel = wrapper.parentElement // .preview-panel
+  const exportElement = async (el, w, h, pixelRatio, filename) => {
+    const wrapper = el.parentElement
+    const panel = wrapper?.parentElement
 
-    // Save originals
     const saved = {
       elTransform: el.style.transform,
       elOrigin: el.style.transformOrigin,
-      wrapW: wrapper.style.width,
-      wrapH: wrapper.style.height,
-      wrapOvf: wrapper.style.overflow,
-      wrapPos: wrapper.style.position,
-      panelOvf: panel.style.overflow,
-      panelW: panel.style.width,
-      panelMinW: panel.style.minWidth,
+      elWidth: el.style.width,
+      elHeight: el.style.height,
+      wrapW: wrapper?.style.width,
+      wrapH: wrapper?.style.height,
+      wrapOvf: wrapper?.style.overflow,
+      wrapPos: wrapper?.style.position,
+      panelOvf: panel?.style.overflow,
+      panelW: panel?.style.width,
+      panelMinW: panel?.style.minWidth,
     }
 
-    // Expand everything to full 1080x1440 — no clipping
     el.style.transform = 'none'
     el.style.transformOrigin = 'top left'
-    wrapper.style.width = '1080px'
-    wrapper.style.height = '1440px'
-    wrapper.style.overflow = 'visible'
-    wrapper.style.position = 'relative'
-    panel.style.overflow = 'visible'
-    panel.style.width = '1080px'
-    panel.style.minWidth = '1080px'
+    el.style.width = w + 'px'
+    el.style.height = h + 'px'
+    if (wrapper) {
+      wrapper.style.width = w + 'px'
+      wrapper.style.height = h + 'px'
+      wrapper.style.overflow = 'visible'
+      wrapper.style.position = 'relative'
+    }
+    if (panel) {
+      panel.style.overflow = 'visible'
+      panel.style.width = w + 'px'
+      panel.style.minWidth = w + 'px'
+    }
 
-    // Triple rAF to ensure full layout settle
     await new Promise(r => requestAnimationFrame(() =>
       requestAnimationFrame(() => requestAnimationFrame(r))
     ))
 
     try {
       const opts = {
-        width: 1080,
-        height: 1440,
-        pixelRatio: 1,
-        style: {
-          transform: 'none',
-          transformOrigin: 'top left',
-        },
+        width: w,
+        height: h,
+        pixelRatio,
+        style: { transform: 'none', transformOrigin: 'top left' },
         skipAutoScale: true,
       }
-      // Use pre-embedded font CSS if available
-      if (fontCSSRef.current) {
-        opts.fontEmbedCSS = fontCSSRef.current
-      }
-      // Double render: first pass caches resources, second produces accurate output
+      if (fontCSSRef.current) opts.fontEmbedCSS = fontCSSRef.current
       await toPng(el, opts)
       const dataUrl = await toPng(el, opts)
-
       const link = document.createElement('a')
-      const suffix = isH ? 'h' : 'v'
-      link.download = `chronova_schedule_w${schedule.weekNumber}_${suffix}.png`
+      link.download = filename
       link.href = dataUrl
       link.click()
+    } finally {
+      el.style.transform = saved.elTransform
+      el.style.transformOrigin = saved.elOrigin
+      el.style.width = saved.elWidth
+      el.style.height = saved.elHeight
+      if (wrapper) {
+        wrapper.style.width = saved.wrapW
+        wrapper.style.height = saved.wrapH
+        wrapper.style.overflow = saved.wrapOvf
+        wrapper.style.position = saved.wrapPos
+      }
+      if (panel) {
+        panel.style.overflow = saved.panelOvf
+        panel.style.width = saved.panelW
+        panel.style.minWidth = saved.panelMinW
+      }
+    }
+  }
+
+  // === Full card export (2160x2880 = 2x) ===
+  const handleExportPNG = async () => {
+    if (!previewRef.current || exporting) return
+    setExporting(true)
+    try {
+      const suffix = isH ? 'h' : 'v'
+      await exportElement(previewRef.current, 1080, 1440, 2,
+        `glass_schedule_w${schedule.weekNumber}_${suffix}.png`)
     } catch (err) {
       console.error('Export failed:', err)
       alert('Export failed: ' + err.message)
     } finally {
-      el.style.transform = saved.elTransform
-      el.style.transformOrigin = saved.elOrigin
-      wrapper.style.width = saved.wrapW
-      wrapper.style.height = saved.wrapH
-      wrapper.style.overflow = saved.wrapOvf
-      wrapper.style.position = saved.wrapPos
-      panel.style.overflow = saved.panelOvf
-      panel.style.width = saved.panelW
-      panel.style.minWidth = saved.panelMinW
+      setExporting(false)
+    }
+  }
+
+  // === Schedule-only export (1920x1080) ===
+  const handleExportSchedule = async () => {
+    if (!scheduleRef?.current || exporting) return
+    setExporting(true)
+    try {
+      const suffix = isH ? 'h' : 'v'
+      await exportElement(scheduleRef.current, 1920, 1080, 1,
+        `glass_sched_only_w${schedule.weekNumber}_${suffix}.png`)
+    } catch (err) {
+      console.error('Schedule export failed:', err)
+      alert('Export failed: ' + err.message)
+    } finally {
       setExporting(false)
     }
   }
@@ -690,9 +717,12 @@ export default function EditorPanel({ schedule, updateSchedule, updateDay, previ
       </div>
 
       {/* Export */}
-      <div className="actions-bar">
-        <button className="btn btn-accent" onClick={handleExportPNG} disabled={exporting} style={{ flex: 1, opacity: exporting ? 0.5 : 1 }}>
-          {exporting ? 'エクスポート中...' : 'EXPORT PNG (1080x1440)'}
+      <div className="actions-bar" style={{ flexDirection: 'column', gap: 4 }}>
+        <button className="btn btn-accent" onClick={handleExportPNG} disabled={exporting} style={{ width: '100%', opacity: exporting ? 0.5 : 1 }}>
+          {exporting ? 'エクスポート中...' : 'EXPORT 全体 (2160×2880)'}
+        </button>
+        <button className="btn btn-sm" onClick={handleExportSchedule} disabled={exporting} style={{ width: '100%', opacity: exporting ? 0.5 : 1, fontSize: 10, padding: '6px 10px' }}>
+          {exporting ? 'エクスポート中...' : 'EXPORT スケジュールのみ (1920×1080)'}
         </button>
       </div>
     </div>

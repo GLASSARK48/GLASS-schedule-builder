@@ -5,7 +5,7 @@ import './PreviewPanel.css'
 const FM_GRAD = 'linear-gradient(180deg, #3D5AF1, #00E5A0, #FF6B35, #7B61FF, #FF69B4)'
 const DAYS_JP = ['月', '火', '水', '木', '金', '土', '日']
 
-export default function PreviewPanel({ schedule, previewRef }) {
+export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
   const pal = PALETTES[schedule.palette] || PALETTES.A
   const fs = schedule.fontScale || 1
   const endShort = schedule.endDate.slice(5).replace('-', '.')
@@ -438,13 +438,14 @@ export default function PreviewPanel({ schedule, previewRef }) {
           <div className="pv-chrome-line" />
 
           {/* ZONE 3: SCHEDULE */}
-          {renderSchedule()}
-
-          {/* FOOTER */}
-          <div className="pv-footer">
-            <span style={{ fontSize: 9 * fs }}>GLASS 2026</span>
-            <div className="pv-footer-line" />
-            <span style={{ fontSize: 9 * fs }}>W{schedule.weekNumber}</span>
+          <div ref={scheduleRef} className="pv-schedule-export-wrap" style={palVars}>
+            {renderSchedule()}
+            {/* FOOTER */}
+            <div className="pv-footer">
+              <span style={{ fontSize: 9 * fs }}>GLASS 2026</span>
+              <div className="pv-footer-line" />
+              <span style={{ fontSize: 9 * fs }}>W{schedule.weekNumber}</span>
+            </div>
           </div>
 
           <div className="pv-noise" />
