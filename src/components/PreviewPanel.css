@@ -340,8 +340,9 @@
 .pv-slot-name {
   font-family: 'Outfit', sans-serif;
   font-weight: 500;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   line-height: 1.1;
+  padding-left: 1px;
   color: var(--st-sub, #8888a0);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
