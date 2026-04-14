@@ -38,8 +38,9 @@ export default function PreviewPanel({ schedule, previewRef }) {
     '--pal4': pal.colors[4] || pal.colors[2] || '#f36',
   }
 
+  const titlePos = schedule.titleImagePos || { x: 50, y: 50, scale: 100 }
   const titleBg = schedule.titleImage
-    ? `url(${schedule.titleImage}) center/cover no-repeat`
+    ? `url(${schedule.titleImage}) ${titlePos.x}% ${titlePos.y}% / ${titlePos.scale === 100 ? 'cover' : titlePos.scale + '%'} no-repeat`
     : `linear-gradient(135deg, ${pal.colors[0]} 0%, ${pal.colors[1] || pal.colors[0]} 20%, ${pal.colors[2] || '#888'} 50%, ${pal.colors[3] || '#ccc'} 75%, ${pal.colors[4] || '#f36'} 100%)`
 
   const titleBlend = schedule.titleBlend || 'dark'
@@ -92,6 +93,38 @@ export default function PreviewPanel({ schedule, previewRef }) {
     }
   }
 
+  /* ═══ helper: icon bg style ═══ */
+  const iconBgStyle = (mIcon, ip, mode) => {
+    const base = {
+      backgroundImage: `url(${mIcon})`,
+      opacity: iconOp,
+      backgroundRepeat: 'no-repeat',
+    }
+    if (ip.fade) {
+      // Fade mode: contain + mask で四辺フェード
+      const maskH = mode === 'h'
+        ? 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)'
+        : 'linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)'
+      const maskV = mode === 'h'
+        ? 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)'
+        : 'linear-gradient(to bottom, transparent 0%, black 10%, black 75%, transparent 100%)'
+      return {
+        ...base,
+        backgroundPosition: `${ip.x}% ${ip.y}%`,
+        backgroundSize: 'contain',
+        WebkitMaskImage: `${maskH}, ${maskV}`,
+        WebkitMaskComposite: 'destination-in',
+        maskImage: `${maskH}, ${maskV}`,
+        maskComposite: 'intersect',
+      }
+    }
+    return {
+      ...base,
+      backgroundPosition: `${ip.x}% ${ip.y}%`,
+      backgroundSize: `${ip.scale}%`,
+    }
+  }
+
   /* ═══ SLOT RENDERER (横 horizontal) ═══ */
   const renderSlot = (slot, si) => {
     const member = MEMBERS.find(m => m.id === slot.memberId)
@@ -108,14 +141,9 @@ export default function PreviewPanel({ schedule, previewRef }) {
       }}>
         <div className="pv-slot-bar" />
         {mIcon && (
-          <div className="pv-slot-bg" style={{
-            backgroundImage: `url(${mIcon})`,
-            opacity: iconOp,
-            backgroundPosition: `${ip.x}% ${ip.y}%`,
-            backgroundSize: `${ip.scale}%`,
-          }} />
+          <div className="pv-slot-bg" style={iconBgStyle(mIcon, ip, 'h')} />
         )}
-        <div className="pv-slot-bg-fade" />
+        {!ip.fade && <div className="pv-slot-bg-fade" />}
         <div className="pv-slot-glow" />
         <div className="pv-slot-info">
           {member?.jp !== member?.en && (
@@ -192,14 +220,9 @@ export default function PreviewPanel({ schedule, previewRef }) {
       }}>
         <div className="pv-vslot-bar" />
         {mIcon && (
-          <div className="pv-vslot-bg" style={{
-            backgroundImage: `url(${mIcon})`,
-            opacity: iconOp,
-            backgroundPosition: `${ip.x}% ${ip.y}%`,
-            backgroundSize: `${ip.scale}%`,
-          }} />
+          <div className="pv-vslot-bg" style={iconBgStyle(mIcon, ip, 'v')} />
         )}
-        <div className="pv-vslot-bg-fade" />
+        {!ip.fade && <div className="pv-vslot-bg-fade" />}
         <div className="pv-slot-glow" />
         {member?.jp !== member?.en && (
           <div className="pv-vslot-jp-main" style={{ fontSize: (adv.vSlotJpSize || 18) * fs, color: member?.color, ...fJp }}>{member?.jp}</div>

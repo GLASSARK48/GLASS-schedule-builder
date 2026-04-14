@@ -437,6 +437,35 @@ export default function EditorPanel({ schedule, updateSchedule, updateDay, previ
             style={{ width: '100%' }}
           />
         </div>
+        {schedule.titleImage && (() => {
+          const tp = schedule.titleImagePos || { x: 50, y: 50, scale: 100 }
+          const updateTp = (field, val) => updateSchedule(prev => ({
+            ...prev,
+            titleImagePos: { ...(prev.titleImagePos || { x: 50, y: 50, scale: 100 }), [field]: val }
+          }))
+          return (
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginTop: 8 }}>
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: 8, color: 'var(--t3)', fontFamily: "'JetBrains Mono', monospace" }}>X: {tp.x}%</label>
+                <input type="range" min="0" max="100" step="1" value={tp.x}
+                  onChange={e => updateTp('x', parseInt(e.target.value))}
+                  style={{ width: '100%' }} />
+              </div>
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: 8, color: 'var(--t3)', fontFamily: "'JetBrains Mono', monospace" }}>Y: {tp.y}%</label>
+                <input type="range" min="0" max="100" step="1" value={tp.y}
+                  onChange={e => updateTp('y', parseInt(e.target.value))}
+                  style={{ width: '100%' }} />
+              </div>
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: 8, color: 'var(--t3)', fontFamily: "'JetBrains Mono', monospace" }}>拡大: {tp.scale}%</label>
+                <input type="range" min="50" max="300" step="5" value={tp.scale}
+                  onChange={e => updateTp('scale', parseInt(e.target.value))}
+                  style={{ width: '100%' }} />
+              </div>
+            </div>
+          )
+        })()}
       </div>
 
       {/* Member icons */}
@@ -487,18 +516,28 @@ export default function EditorPanel({ schedule, updateSchedule, updateDay, previ
         {/* Per-icon position controls */}
         {MEMBERS.map(m => {
           if (!iconPosOpen[m.id] || !schedule.memberIcons[m.id]) return null
-          const pos = iconPos[m.id] || { x: 50, y: 50, scale: 100 }
+          const pos = iconPos[m.id] || { x: 50, y: 50, scale: 100, fade: false }
           const updatePos = (field, val) => updateSchedule(prev => ({
             ...prev,
             iconPositions: {
               ...prev.iconPositions,
-              [m.id]: { ...(prev.iconPositions?.[m.id] || { x: 50, y: 50, scale: 100 }), [field]: val }
+              [m.id]: { ...(prev.iconPositions?.[m.id] || { x: 50, y: 50, scale: 100, fade: false }), [field]: val }
             }
           }))
           return (
             <div key={m.id} className="icon-pos-panel" style={{ marginTop: 6, padding: '6px 8px', background: 'var(--card2)', border: `1px solid ${m.color}33`, borderRadius: 2 }}>
-              <div style={{ fontSize: 9, fontFamily: "'JetBrains Mono', monospace", color: m.color, letterSpacing: 1, marginBottom: 4 }}>
-                {m.jp} ({m.en}) — 位置調整
+              <div style={{ fontSize: 9, fontFamily: "'JetBrains Mono', monospace", color: m.color, letterSpacing: 1, marginBottom: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <span>{m.jp} ({m.en}) — 位置調整</span>
+                <button
+                  className="btn btn-sm"
+                  style={{
+                    fontSize: 7, padding: '1px 6px',
+                    border: pos.fade ? `1px solid ${m.color}` : '1px solid var(--border)',
+                    color: pos.fade ? m.color : 'var(--t3)',
+                    background: pos.fade ? `${m.color}15` : 'transparent',
+                  }}
+                  onClick={() => updatePos('fade', !pos.fade)}
+                >フェード</button>
               </div>
               <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                 <div style={{ flex: 1 }}>
@@ -513,12 +552,14 @@ export default function EditorPanel({ schedule, updateSchedule, updateDay, previ
                     onChange={e => updatePos('y', parseInt(e.target.value))}
                     style={{ width: '100%' }} />
                 </div>
-                <div style={{ flex: 1 }}>
-                  <label style={{ fontSize: 8, color: 'var(--t3)' }}>拡大: {pos.scale}%</label>
-                  <input type="range" min="20" max="600" step="5" value={pos.scale}
-                    onChange={e => updatePos('scale', parseInt(e.target.value))}
-                    style={{ width: '100%' }} />
-                </div>
+                {!pos.fade && (
+                  <div style={{ flex: 1 }}>
+                    <label style={{ fontSize: 8, color: 'var(--t3)' }}>拡大: {pos.scale}%</label>
+                    <input type="range" min="20" max="600" step="5" value={pos.scale}
+                      onChange={e => updatePos('scale', parseInt(e.target.value))}
+                      style={{ width: '100%' }} />
+                  </div>
+                )}
               </div>
             </div>
           )
