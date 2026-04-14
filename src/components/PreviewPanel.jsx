@@ -142,17 +142,29 @@ export default function PreviewPanel({ schedule, previewRef }) {
   /* ═══ FM BADGE (横) ═══ */
   const ytIcon = PLATFORMS.find(p => p.id === 'youtube')?.icon
   const platSz = adv.platIconSize || 28
-  const renderFmBadge = () => (
-    <div className="pv-slot pv-slot-fm-badge">
+  const renderFmBadge = (compact = false) => (
+    <div className={`pv-slot pv-slot-fm-badge ${compact ? 'pv-slot-fm-compact' : ''}`}>
       <div className="pv-slot-bar" style={{ background: FM_GRAD }} />
       <div className="pv-slot-info">
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <div className="pv-fm-dots-row">
-            {MEMBERS.map(m => <div key={m.id} className="pv-fm-dot-h" style={{ background: m.color }} />)}
+        {!compact && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div className="pv-fm-dots-row">
+              {MEMBERS.map(m => <div key={m.id} className="pv-fm-dot-h" style={{ background: m.color }} />)}
+            </div>
+            <div className="pv-fm-title" style={{ fontSize: (adv.slotJpSize || 20) * fs, ...fDisplay }}>{schedule.fanmeeting.title}</div>
           </div>
-          <div className="pv-fm-title" style={{ fontSize: (adv.slotJpSize || 20) * fs, ...fDisplay }}>{schedule.fanmeeting.title}</div>
-        </div>
-        <div className="pv-fm-jp" style={{ fontSize: (adv.slotEnSize || 12) * fs, ...fJp }}>ファンミ</div>
+        )}
+        {compact && (
+          <div>
+            <div className="pv-fm-dots-row" style={{ marginBottom: 2 }}>
+              {MEMBERS.map(m => <div key={m.id} className="pv-fm-dot-h" style={{ background: m.color }} />)}
+            </div>
+            <div className="pv-fm-title" style={{ fontSize: (adv.slotEnSize || 12) * fs, ...fDisplay, lineHeight: 1.2 }}>
+              FAN<br/>MEETING
+            </div>
+          </div>
+        )}
+        <div className="pv-fm-jp" style={{ fontSize: (compact ? 9 : (adv.slotEnSize || 12)) * fs, ...fJp }}>ファンミ</div>
       </div>
       <div className="pv-slot-plat-zone">
         {ytIcon && <img className="pv-slot-plat-icon" src={ytIcon} alt="YouTube"
@@ -298,7 +310,7 @@ export default function PreviewPanel({ schedule, previewRef }) {
                 </div>
                 <div className="pv-row-slots pv-row-slots-h">
                   {day.slots.map((slot, si) => renderSlot(slot, si))}
-                  {isFM && renderFmBadge()}
+                  {isFM && renderFmBadge(day.slots.length > 0)}
                 </div>
               </div>
             )
