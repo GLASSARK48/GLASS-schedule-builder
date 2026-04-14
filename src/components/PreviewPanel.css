@@ -610,33 +610,37 @@
 
 /* ═══ DAY OFF ═══ */
 .pv-row-dayoff {
-  opacity: 0.55;
+  opacity: 0.7;
 }
 .pv-dayoff-body {
-  gap: 16px;
+  gap: 14px;
 }
 .pv-dayoff-icon {
-  font-size: 28px;
-  opacity: 0.35;
+  font-size: 32px;
+  color: #cc2233;
+  opacity: 0.7;
   line-height: 1;
+  font-weight: 700;
 }
 .pv-dayoff-text {
   display: flex; flex-direction: column; gap: 2px;
 }
 .pv-dayoff-label {
   font-family: 'Orbitron', sans-serif;
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: 3px;
-  color: var(--st-muted, #555568);
+  color: #cc2233;
+  opacity: 0.6;
   position: relative; z-index: 5;
 }
 .pv-dayoff-jp {
-  font-weight: 500;
-  color: var(--st-muted, #555568);
+  font-weight: 700;
+  color: #cc2233;
+  opacity: 0.5;
   position: relative; z-index: 5;
 }
 .pv-col-dayoff {
-  opacity: 0.55;
+  opacity: 0.65;
 }
 .pv-vslot-dayoff {
   flex: 1;
@@ -650,20 +654,25 @@
   overflow: hidden;
 }
 .pv-dayoff-icon-v {
-  font-size: 36px;
-  opacity: 0.35;
+  font-size: 40px;
+  color: #cc2233;
+  opacity: 0.7;
+  font-weight: 700;
   line-height: 1;
   position: relative; z-index: 5;
 }
 .pv-dayoff-jp-v {
-  color: var(--st-text, #e0e0e8);
+  color: #cc2233;
   position: relative; z-index: 5;
   text-align: center;
-  opacity: 0.8;
+  opacity: 0.6;
+  font-weight: 700;
 }
 .pv-dayoff-en-v {
   letter-spacing: 2px;
-  color: var(--st-muted, #555568);
+  color: #cc2233;
+  opacity: 0.45;
+  font-weight: 700;
   position: relative; z-index: 5;
   text-align: center;
 }

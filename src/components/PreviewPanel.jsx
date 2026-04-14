@@ -304,7 +304,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
                     <span className="pv-day-date" style={{ fontSize: (adv.dayDateSize || 13) * fs }}>{dateShort}</span>
                   </div>
                   <div className="pv-row-body pv-dayoff-body">
-                    <div className="pv-dayoff-icon">☾</div>
+                    <div className="pv-dayoff-icon">✕</div>
                     <div className="pv-dayoff-text">
                       <span className="pv-dayoff-label" style={{ fontSize: 14 * fs, ...fDisplay }}>NO STREAMING</span>
                       <span className="pv-dayoff-jp" style={{ fontSize: 11 * fs, ...fJp }}>お休み</span>
@@ -386,7 +386,7 @@ export default function PreviewPanel({ schedule, previewRef, scheduleRef }) {
               <div className="pv-col-slots">
                 {isDayOff && (
                   <div className="pv-vslot-dayoff">
-                    <div className="pv-dayoff-icon-v">☾</div>
+                    <div className="pv-dayoff-icon-v">✕</div>
                     <span className="pv-dayoff-jp-v" style={{ fontSize: 16 * fs, ...fJp }}>お休み</span>
                     <span className="pv-dayoff-en-v" style={{ fontSize: 7 * fs, ...fLabel }}>NO STREAMING</span>
                   </div>
